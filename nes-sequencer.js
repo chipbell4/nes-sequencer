@@ -43,10 +43,10 @@ var NesSequencer = (function() {
   var createNoiseOscillator = function() {
     // https://medium.com/web-audio/you-dont-need-that-scriptprocessor-61a836e28b42
     var node = context.createBufferSource();
-    var buffer = context.createBuffer(1, 4096, context.sampleRate);
+    var buffer = context.createBuffer(1, context.sampleRate, context.sampleRate);
     var data = buffer.getChannelData(0);
 
-    for(var i = 0; i < 4096; i++) {
+    for(var i = 0; i < context.sampleRate; i++) {
       data[i] = Math.random();
     }
 
@@ -56,11 +56,18 @@ var NesSequencer = (function() {
     var gain = context.createGain();
     gain.gain.value = 0;
     node.connect(gain);
-    gain.connect(context.destination);
+
+    bandpass = context.createBiquadFilter();
+    bandpass.frequency.value = 440;
+    bandpass.type = 'bandpass';
+    bandpass.Q = 500;
+    gain.connect(bandpass);
+    bandpass.connect(context.destination);
 
     return {
       oscillator: node,
-      gain: gain
+      gain: gain,
+      bandpass: bandpass
     };
   };
 
