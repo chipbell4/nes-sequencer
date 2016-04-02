@@ -7,7 +7,24 @@
         <script>
 NesSequencer.init();
 
-NesSequencer.setPitch(NesSequencer.OSCILLATOR_TYPES.NOISE, 440, 0.1);
+var melody = [
+    {
+        frequency: 440,
+        duration: 1500,
+        volume: 0.2,
+    },
+    {
+        frequency: 440 * 4 / 3,
+        duration: 1000,
+        volume: 0.2,
+    }
+];
+
+NesSequencer
+    .scheduleMelody(NesSequencer.OSCILLATOR_TYPES.TRI, melody)
+    .then(function() {
+        console.log('Done');
+    });
         </script>
     </body>
 </html>

@@ -93,8 +93,10 @@ var NesSequencer = (function() {
     },
 
     setPitch: function(oscillatorIndex, frequency, volume) {
-      volume = Math.max(0, Math.min(1, volume));
-      oscillators[oscillatorIndex].gain.gain.value = volume;
+      if(volume !== undefined) {
+        volume = Math.max(0, Math.min(1, volume));
+        oscillators[oscillatorIndex].gain.gain.value = volume;
+      }
 
       if(oscillatorIndex === this.OSCILLATOR_TYPES.NOISE) {
         oscillators[oscillatorIndex].bandpass.frequency.value = frequency;
@@ -102,6 +104,36 @@ var NesSequencer = (function() {
       }
 
       oscillators[oscillatorIndex].oscillator.frequency.value = frequency;
+    },
+
+    scheduleMelody: function(oscillatorIndex, melody) {
+      var TimeoutPromise = function(thingToDo, delay) {
+        return new Promise(function(resolve) {
+          setTimeout(function() { resolve(thingToDo()); }, delay);
+        });
+      };
+
+      // now, start chaining together "setPitch" calls
+      var setPitch = this.setPitch.bind(this);
+      var melodyChain = TimeoutPromise(function() {
+        setPitch(oscillatorIndex, melody[0].frequency, melody[0].volume);
+      }, 0);
+      for(var i = 1; i < melody.length; i++) {
+        var k = i;
+        melodyChain = melodyChain.then(function() {
+          console.log('Setting for ' + k);
+          return TimeoutPromise(function() {
+            setPitch(oscillatorIndex, melody[k].frequency, melody[k].volume);
+          }, melody[k-1].duration);
+        });
+      }
+
+      // lastly, add a final volume change 
+      return melodyChain.then(function() {
+        return TimeoutPromise(function() {
+          setPitch(oscillatorIndex, 440, 0);
+        }, melody[melody.length - 1].duration);
+      });
     },
   };
 })();
