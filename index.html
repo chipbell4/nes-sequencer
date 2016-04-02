@@ -7,18 +7,19 @@
         <script>
 NesSequencer.init();
 
-var melody = [
-    {
-        frequency: 440,
-        duration: 1500,
+var semitone = Math.pow(2, 1/12);
+
+var scale = [0, 2, 4, 5, 7, 9, 11];
+
+var melody = scale.map(function(offset) {
+    return {
+        frequency: 440 * Math.pow(semitone, offset),
+        duration: 500,
         volume: 0.2,
-    },
-    {
-        frequency: 440 * 4 / 3,
-        duration: 1000,
-        volume: 0.2,
-    }
-];
+    };
+});
+
+console.log(melody);
 
 NesSequencer
     .scheduleMelody(NesSequencer.OSCILLATOR_TYPES.TRI, melody)
