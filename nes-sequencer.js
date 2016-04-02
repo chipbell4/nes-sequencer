@@ -57,7 +57,7 @@ var NesSequencer = (function() {
     gain.gain.value = 0;
     node.connect(gain);
 
-    bandpass = context.createBiquadFilter();
+    var bandpass = context.createBiquadFilter();
     bandpass.frequency.value = 440;
     bandpass.type = 'bandpass';
     bandpass.Q = 500;
