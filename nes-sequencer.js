@@ -119,13 +119,15 @@ var NesSequencer = (function() {
         setPitch(oscillatorIndex, melody[0].frequency, melody[0].volume);
       }, 0);
       for(var i = 1; i < melody.length; i++) {
-        var k = i;
-        melodyChain = melodyChain.then(function() {
-          console.log('Setting for ' + k);
-          return TimeoutPromise(function() {
-            setPitch(oscillatorIndex, melody[k].frequency, melody[k].volume);
-          }, melody[k-1].duration);
-        });
+        (function() {
+          var k = i;
+          melodyChain = melodyChain.then(function() {
+            console.log('Setting for ' + k);
+            return TimeoutPromise(function() {
+              setPitch(oscillatorIndex, melody[k].frequency, melody[k].volume);
+            }, melody[k-1].duration);
+          });
+        })();
       }
 
       // lastly, add a final volume change 
