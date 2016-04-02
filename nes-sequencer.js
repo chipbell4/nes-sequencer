@@ -97,6 +97,7 @@ var NesSequencer = (function() {
       oscillators[oscillatorIndex].gain.gain.value = volume;
 
       if(oscillatorIndex === this.OSCILLATOR_TYPES.NOISE) {
+        oscillators[oscillatorIndex].bandpass.frequency.value = frequency;
         return;
       }
 
