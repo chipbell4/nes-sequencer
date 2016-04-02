@@ -31,6 +31,30 @@ var NesSequencer = (function() {
     };
   };
 
+  var createNoiseOscillator = function() {
+    // https://medium.com/web-audio/you-dont-need-that-scriptprocessor-61a836e28b42
+    var node = context.createBufferSource();
+    var buffer = context.createBuffer(1, 4096, context.sampleRate);
+    var data = buffer.getChannelData(0);
+
+    for(var i = 0; i < 4096; i++) {
+      data[i] = Math.random();
+    }
+
+    node.buffer = buffer;
+    node.loop = true;
+
+    var gain = context.createGain();
+    gain.gain.value = 0;
+    node.connect(gain);
+    gain.connect(context.destination);
+
+    return {
+      oscillator: node,
+      gain: gain
+    };
+  };
+
   return {
 
     OSCILLATOR_TYPES: {
@@ -45,7 +69,7 @@ var NesSequencer = (function() {
       oscillators[this.OSCILLATOR_TYPES.PWM1] = createOscillator();
       oscillators[this.OSCILLATOR_TYPES.PWM2] = createOscillator();
       oscillators[this.OSCILLATOR_TYPES.TRI] = createOscillator();
-      oscillators[this.OSCILLATOR_TYPES.NOISE] = createOscillator();
+      oscillators[this.OSCILLATOR_TYPES.NOISE] = createNoiseOscillator();
 
       Object.keys(oscillators).forEach(function(key) {
         oscillators[key].oscillator.start(0);
@@ -53,10 +77,10 @@ var NesSequencer = (function() {
     },
 
     setPitch: function(oscillatorIndex, frequency, volume) {
-      oscillators[oscillatorIndex].oscillator.frequency.value = frequency;
-
       volume = Math.max(0, Math.min(1, volume));
       oscillators[oscillatorIndex].gain.gain.value = volume;
+
+      oscillators[oscillatorIndex].oscillator.frequency.value = frequency;
     },
   };
 })();
