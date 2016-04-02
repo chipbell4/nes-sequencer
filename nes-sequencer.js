@@ -19,6 +19,15 @@ var NesSequencer = (function() {
     if(options.frequency) oscillator.frequency.value = options.frequency;    
     if(options.type) oscillator.type = options.type;
 
+    if(options.harmonics) {
+      var waveform = context.createPeriodicWave(
+        new Float32Array(options.harmonics.real),
+        new Float32Array(options.harmonics.imag)
+      );
+      oscillator.setPeriodicWave(waveform);
+    } 
+
+
     var gain = context.createGain();
     gain.gain.value = 0;
 
