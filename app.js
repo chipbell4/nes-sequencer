@@ -27,11 +27,22 @@ var riffThree = riffOne.map(function(note) {
 });
 
 var fullBassRiff = riffOne.concat(riffTwo).concat(riffThree).concat(riffOne);
+fullBassRiff = fullBassRiff.concat(fullBassRiff);
 
+var drumRiff = [
+  { frequency: 8000, volume: 0.2, duration: eighth },
+  { frequency: 4000, volume: 0.2, duration: sixteenth },
+  { frequency: 4000, volume: 0.2, duration: sixteenth },
+  { frequency: 3000, volume: 0.2, duration: eighth },
+  { frequency: 4000, volume: 0.2, duration: sixteenth },
+  { frequency: 4000, volume: 0.2, duration: sixteenth },
+];
+var fullDrumRiff = Staccato(drumRiff);
+fullDrumRiff = fullDrumRiff.concat(fullDrumRiff);
+fullDrumRiff = fullDrumRiff.concat(fullDrumRiff);
+fullDrumRiff = fullDrumRiff.concat(fullDrumRiff);
+fullDrumRiff = fullDrumRiff.concat(fullDrumRiff);
+fullDrumRiff = fullDrumRiff.concat(fullDrumRiff);
 
-
-NesSequencer
-    .scheduleMelody(NesSequencer.OSCILLATOR_TYPES.TRI, fullBassRiff.concat(fullBassRiff))
-    .then(function() {
-        console.log('Done');
-    });
+NesSequencer.scheduleMelody(NesSequencer.OSCILLATOR_TYPES.TRI, fullBassRiff)
+NesSequencer.scheduleMelody(NesSequencer.OSCILLATOR_TYPES.NOISE, fullDrumRiff)
