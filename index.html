@@ -3,33 +3,8 @@
     <head>
         <script src="nes-sequencer.js"></script>
         <script src="music-tools.js"></script>
+        <script src="app.js"></script>
     </head>
     <body>
-        <script>
-NesSequencer.init();
-
-var semitone = Math.pow(2, 1/12);
-
-var scale = [0, 2, 4, 5, 7, 9, 11, 12];
-
-var melody = scale.map(function(offset) {
-    return {
-        frequency: 440 * Math.pow(semitone, offset),
-        duration: 1000,
-        volume: 0.2,
-    };
-});
-
-NesSequencer.setPulseWidth(
-        NesSequencer.OSCILLATOR_TYPES.PWM1,
-        0.125
-);
-
-NesSequencer
-    .scheduleMelody(NesSequencer.OSCILLATOR_TYPES.PWM1, melody)
-    .then(function() {
-        console.log('Done');
-    });
-        </script>
     </body>
 </html>
