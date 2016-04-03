@@ -144,7 +144,6 @@ var NesSequencer = (function() {
         (function() {
           var k = i;
           melodyChain = melodyChain.then(function() {
-            console.log('Setting for ' + k);
             return TimeoutPromise(function() {
               setPitch(oscillatorIndex, melody[k].frequency, melody[k].volume);
             }, melody[k-1].duration);
