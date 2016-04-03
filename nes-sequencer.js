@@ -80,16 +80,38 @@ var NesSequencer = (function() {
       NOISE: 3
     },
 
+    PULSE_WIDTHS: {
+      SQUARE: 0.5,
+      QUARTER: 0.25,
+      EIGHTH: 0.125,
+    },
+
     init: function(options) {
       // initialize oscillators
       oscillators[this.OSCILLATOR_TYPES.PWM1] = createOscillator();
+      this.setPulseWidth(this.OSCILLATOR_TYPES.PWM1, 0.5);
       oscillators[this.OSCILLATOR_TYPES.PWM2] = createOscillator();
+      this.setPulseWidth(this.OSCILLATOR_TYPES.PWM2, 0.5);
       oscillators[this.OSCILLATOR_TYPES.TRI] = createOscillator({ type: 'triangle' });
       oscillators[this.OSCILLATOR_TYPES.NOISE] = createNoiseOscillator();
 
       Object.keys(oscillators).forEach(function(key) {
         oscillators[key].oscillator.start(0);
       });
+    },
+    
+    setPulseWidth: function(oscillatorIndex, pulseWidth) {
+      // calculate the harmonics for the passed (clamped) pulse width
+      pulseWidth = Math.max(0, Math.min(1, pulseWidth));
+
+      var real = [0], imag = [0];
+      for(var i = 1; i < 8192; i++) {
+        var realTerm = 4 / (i * Math.PI) * Math.sin(Math.PI * i * pulseWidth);
+        real.push(realTerm);
+        imag.push(0);
+      }
+      oscillators[oscillatorIndex].oscillator.setPeriodicWave(
+        context.createPeriodicWave(new Float32Array(real), new Float32Array(imag)));
     },
 
     setPitch: function(oscillatorIndex, frequency, volume) {

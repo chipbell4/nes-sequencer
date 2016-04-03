@@ -14,15 +14,18 @@ var scale = [0, 2, 4, 5, 7, 9, 11, 12];
 var melody = scale.map(function(offset) {
     return {
         frequency: 440 * Math.pow(semitone, offset),
-        duration: 500,
+        duration: 1000,
         volume: 0.2,
     };
 });
 
-console.log(melody);
+NesSequencer.setPulseWidth(
+        NesSequencer.OSCILLATOR_TYPES.PWM1,
+        0.125
+);
 
 NesSequencer
-    .scheduleMelody(NesSequencer.OSCILLATOR_TYPES.TRI, melody)
+    .scheduleMelody(NesSequencer.OSCILLATOR_TYPES.PWM1, melody)
     .then(function() {
         console.log('Done');
     });
