@@ -1,5 +1,5 @@
 var MusicTools = {
-  noteDurationInMillis: function(tempo, noteType) {
+  duration: function(tempo, noteType) {
     return (60 / tempo * noteType) * 1000;
   },
 
