@@ -5,12 +5,30 @@ var RHYTHM = (function() {
     E: MusicTools.duration(160, 0.5),
     S: MusicTools.duration(160, 0.25)
   };
+  var volumes = {
+    0: 0,
+    1: 0.2
+  };
 
-  var phrase1 = 'ESSESSEEESSEEEEEEEE';
-  var phrase2 = 'ESSESSEEEEEEEEEEEE';
-  var phrase3 = 'EEEEQEEEEQQEE';
+  var phrase1Durations = 'ESSESSEEESSEEEEEEEE';
+  var phrase2Durations = 'ESSESSEEEEEEEEEEEE';
+  var phrase3Durations = 'EEEEQEEEEQQEE';
+  var fullDurations = phrase1Durations + phrase2Durations + phrase2Durations + phrase3Durations;
 
-  return (phrase1 + phrase2 + phrase2 + phrase3).split('').map(function(durationName) {
-    return durations[durationName];
-  });
+  var phrase1Rests = '0111111101111110111';
+  var phrase2Rests = '011111110101010101';
+  var phrase3Rests = '0111101111011';
+  var fullRests = phrase1Rests + phrase2Rests + phrase2Rests + phrase3Rests;
+
+  var raw = [];
+  var N = fullRests.length;
+  for(var i = 0; i < N; i++) {
+    raw.push({
+      frequency: 440,
+      duration: durations[fullDurations[i]],
+      volume: volumes[fullRests[i]],
+    });
+  }
+
+  return raw;
 })();
