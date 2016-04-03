@@ -84,7 +84,7 @@ var NesSequencer = (function() {
       // initialize oscillators
       oscillators[this.OSCILLATOR_TYPES.PWM1] = createOscillator();
       oscillators[this.OSCILLATOR_TYPES.PWM2] = createOscillator();
-      oscillators[this.OSCILLATOR_TYPES.TRI] = createOscillator();
+      oscillators[this.OSCILLATOR_TYPES.TRI] = createOscillator({ type: 'triangle' });
       oscillators[this.OSCILLATOR_TYPES.NOISE] = createNoiseOscillator();
 
       Object.keys(oscillators).forEach(function(key) {
