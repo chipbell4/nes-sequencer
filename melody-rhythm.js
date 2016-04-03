@@ -1,9 +1,8 @@
 var RHYTHM = (function() {
-  var tempo = 160;
   var durations = {
-    Q: MusicTools.duration(160, 1),
-    E: MusicTools.duration(160, 0.5),
-    S: MusicTools.duration(160, 0.25)
+    Q: MusicTools.duration(TEMPO, 1),
+    E: MusicTools.duration(TEMPO, 0.5),
+    S: MusicTools.duration(TEMPO, 0.25)
   };
   var volumes = {
     0: 0,

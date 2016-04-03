@@ -1,10 +1,9 @@
 var BASS = (function() {
-  var tempo = 160;
   var cSharpBass = MusicTools.frequency('C#3');
   var bBass = MusicTools.frequency('B3');
   var aBass = MusicTools.frequency('A3');
-  var eighth = MusicTools.duration(tempo, 0.5);
-  var sixteenth = MusicTools.duration(tempo, 0.25);
+  var eighth = MusicTools.duration(TEMPO, 0.5);
+  var sixteenth = MusicTools.duration(TEMPO, 0.25);
 
   var riffOne = [
     { frequency: cSharpBass, volume: 0.2, duration: eighth },
