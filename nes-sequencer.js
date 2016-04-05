@@ -120,7 +120,7 @@ var NesSequencer = (function() {
         oscillators[oscillatorIndex].gain.gain.value = volume;
       }
 
-      if(oscillatorIndex === this.OSCILLATOR_TYPES.NOISE) {
+      if(oscillatorIndex == this.OSCILLATOR_TYPES.NOISE) {
         oscillators[oscillatorIndex].bandpass.frequency.value = frequency;
         return;
       }
@@ -128,35 +128,74 @@ var NesSequencer = (function() {
       oscillators[oscillatorIndex].oscillator.frequency.value = frequency;
     },
 
-    scheduleMelody: function(oscillatorIndex, melody) {
-      var TimeoutPromise = function(thingToDo, delay) {
-        return new Promise(function(resolve) {
-          setTimeout(function() { resolve(thingToDo()); }, delay);
+    // melodies is an object, with oscillator names as keys
+    scheduleMelody: function(melodies) {
+
+      // build a list of start times for each note (as a running sum)
+      var startTimes = {};
+      var currentNoteIndices = {};
+      Object.keys(melodies).forEach(function(key) {
+        startTimes[key] = [];
+        currentNoteIndices[key] = 0;
+        var runningSum = 0;
+        melodies[key].forEach(function(note) {
+          startTimes[key].push(runningSum);
+          runningSum += note.duration;
         });
-      };
-
-      // now, start chaining together "setPitch" calls
-      var setPitch = this.setPitch.bind(this);
-      var melodyChain = TimeoutPromise(function() {
-        setPitch(oscillatorIndex, melody[0].frequency, melody[0].volume);
-      }, 0);
-      for(var i = 1; i < melody.length; i++) {
-        (function() {
-          var k = i;
-          melodyChain = melodyChain.then(function() {
-            return TimeoutPromise(function() {
-              setPitch(oscillatorIndex, melody[k].frequency, melody[k].volume);
-            }, melody[k-1].duration);
-          });
-        })();
-      }
-
-      // lastly, add a final volume change 
-      return melodyChain.then(function() {
-        return TimeoutPromise(function() {
-          setPitch(oscillatorIndex, 440, 0);
-        }, melody[melody.length - 1].duration);
       });
+
+      var sequencer = this;
+      var previousFrame, currentFrame, timeElapsed = 0;
+
+      Object.keys(melodies).forEach(function(key) {
+          sequencer.setPitch(key, melodies[key][0].frequency, melodies[key][0].volume);
+      });
+
+      var interval = setInterval(function() {
+        var finished = Object.keys(melodies).every(function(key) {
+          var k = currentNoteIndices[key];
+          var endTimeForCurrentNote = startTimes[k] + melodies[key][k].duration;
+
+          return melodies[key][k+1] === undefined && endTimeForCurrentNote < timeElapsed;
+        });
+
+        if(finished) { clearInterval(interval); }
+
+        // update frame time
+        if(previousFrame === undefined) {
+          previousFrame = currentFrame = Date.now();
+        }
+        timeElapsed += currentFrame - previousFrame;
+        previousFrame = currentFrame;
+        currentFrame = Date.now();
+
+        Object.keys(melodies).forEach(function(key) {
+
+          var k = currentNoteIndices[key];
+          var endTimeForCurrentNote = startTimes[key][k] + melodies[key][k].duration;
+          var finishedCurrentNote = endTimeForCurrentNote < timeElapsed;
+
+          // if we're at the last note, and we're past the last duration, turn off
+          if(melodies[key][k+1] === undefined && finishedCurrentNote) {
+            sequencer.setPitch(key, 440, 0);
+            return;
+          }
+          
+          // if we're at the last note, break out
+          if(melodies[key][k+1] === undefined) {
+            return;
+          }
+          
+          // if we haven't crossed into the next note, we've nothing to do
+          if(!finishedCurrentNote) {
+            return;
+          }
+
+          // otherwise, our time has just crossed over into the next note, update everything
+          currentNoteIndices[key]++;
+          sequencer.setPitch(key, melodies[key][k+1].frequency, melodies[key][k+1].volume);
+        });
+      }, 10);
     },
   };
 })();
