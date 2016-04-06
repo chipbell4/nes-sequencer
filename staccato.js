@@ -1,5 +1,5 @@
-var Staccato = function(melody) {
-  var noteReduction = 0.3;
+var Staccato = function(melody, noteReduction) {
+  var noteReduction = noteReduction || 0.5;
   var newMelody = [];
   for(var i = 0; i < melody.length; i++) {
     newMelody.push({
