@@ -125,7 +125,7 @@ var NesSequencer = (function() {
         return;
       }
 
-      oscillators[oscillatorIndex].oscillator.frequency.value = frequency;
+      oscillators[oscillatorIndex].oscillator.frequency.setValueAtTime(frequency, 0);
     },
 
     // melodies is an object, with oscillator names as keys
