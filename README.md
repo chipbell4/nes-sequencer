@@ -18,7 +18,7 @@ to allow me to bandpass-filter frequencies to get "high" and "low" noise.
 
 ## Basic Pitch Setting etc.
 The easiest way to set a pitch is using `setPitch`:
-```
+```javascript
 NesSequencer.setPitch(NesSequencer.OSCILLATOR_TYPES.PWM1, 880, 0.1);
 NesSequencer.setPitch(NesSequencer.OSCILLATOR_TYPES.PWM2, 440, 0.1);
 NesSequencer.setPitch(NesSequencer.OSCILLATOR_TYPES.TRI, 220, 0.1);
@@ -26,14 +26,14 @@ NesSequencer.setPitch(NesSequencer.OSCILLATOR_TYPES.NOISE, 100, 0.1);
 ```
 
 You can change the pulse width as well
-```
+```javascript
 NesSequencer.setPulseWidth(NesSequencer.OSCILLATOR_TYPES.PWM1, 0.25);
 ```
 
 ## Building songs
 Building songs is fairly easy, by passing an object to `scheduleMelody`. The object will have keys for each oscillator,
 and arrays for each value. Here's an example
-```
+```javascript
 var notes = [
   { frequency: 440, duration: 500, volume: 0.1 },
   { frequency: 880, duration: 1000, volume: 0.1 },
