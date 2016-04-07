@@ -128,7 +128,12 @@ var NesSequencer = (function() {
       oscillators[oscillatorIndex].oscillator.frequency.setValueAtTime(frequency, 0);
     },
 
-    // melodies is an object, with oscillator names as keys
+    /**
+     * Schedules a melody to be played. melodies, in this case is an object, where the keys are the oscillator type
+     * (NesSequencer.OSCILLATOR_TYPES.PWM1), and the associated values is an array of objects, each looking like this:
+     * { frequency: 440, volume: 0.2, duration: 1000 }, where frequency is in Hz, volume ranges between 0 and 1, and
+     * duration is in millis.
+     */
     scheduleMelody: function(melodies) {
 
       // build a list of start times for each note (as a running sum)
