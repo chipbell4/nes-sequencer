@@ -7,9 +7,6 @@ var MusicTools = {
     var octave = Number(note[note.length - 1]);
     var pitch = note.substr(0, note.length - 1);
     var pitchNames = [
-      'A',
-      ['A#', 'Bb'],
-      'B',
       ['C', 'B#'],
       ['C#', 'Db'],
       'D',
@@ -18,7 +15,10 @@ var MusicTools = {
       'F',
       ['F#', 'Gb'],
       'G',
-      ['G#', 'Ab']
+      ['G#', 'Ab'],
+      'A',
+      ['A#', 'Bb'],
+      'B'
     ];
 
     // find the pitch offset
@@ -32,7 +32,8 @@ var MusicTools = {
     }
 
     var oneSemitone = Math.pow(2, 1/12);
-    var semitones = (octave - 5) * 12 + pitchOffset;
-    return 440 * Math.pow(oneSemitone, semitones);
+    var semitones = (octave - 4) * 12 + pitchOffset;
+    var c4 = 261.63;
+    return c4 * Math.pow(oneSemitone, semitones);
   },
 };

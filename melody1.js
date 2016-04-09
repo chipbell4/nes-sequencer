@@ -1,5 +1,5 @@
 var MELODY1 = (function() {
-  var scaleTones = ['C#5', 'D#5', 'E5', 'F#5', 'G#5', 'A#6', 'B6', 'C#6', 'D#6', 'E6'].map(MusicTools.frequency);
+  var scaleTones = ['C#5', 'D#5', 'E5', 'F#5', 'G#5', 'A#5', 'B5', 'C#6', 'D#6', 'E6'].map(MusicTools.frequency);
 
   var phrase1 = [
     2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 0, 2, 4, 3, 2

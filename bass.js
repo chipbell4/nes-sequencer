@@ -1,7 +1,7 @@
 var BASS = (function() {
   var cSharpBass = MusicTools.frequency('C#3');
-  var bBass = MusicTools.frequency('B3');
-  var aBass = MusicTools.frequency('A3');
+  var bBass = MusicTools.frequency('B2');
+  var aBass = MusicTools.frequency('A2');
   var eighth = MusicTools.duration(TEMPO, 0.5);
   var sixteenth = MusicTools.duration(TEMPO, 0.25);
 

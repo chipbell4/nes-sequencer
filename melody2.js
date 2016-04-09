@@ -1,17 +1,17 @@
 var MELODY2 = (function() {
-  var scaleTones = ['C#4', 'G#4', 'A5', 'A#5', 'B5','C#5', 'D#5', 'E5', 'B6', 'C#6'].map(MusicTools.frequency);
+  var scaleTones = ['C#4', 'G#4', 'A4', 'A#4', 'B4','C#5', 'D#5', 'E5', 'B5', 'C#6'].map(MusicTools.frequency);
 
   var phrase1 = [
-    5, 5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 2, 5, 5, 4, 1
+    5, 5, 5, 5, 5, 5, 1, 5, 5, 5, 5, 1, 5, 5, 4, 1
   ];
   var phrase2 = [
     5, 5, 5, 5, 5, 5, 2, 5, 4, 1, 1, 1,
   ];
   var phrase3 = [
-    6, 6, 6, 6, 6, 6, 4, 7, 6, 5, 4, 2,
+    6, 6, 6, 6, 6, 6, 4, 7, 6, 5, 4, 1,
   ];
   var phrase4 = [
-    0, 1, 4, 3, 0, 1, 4, 3, 7, 8
+    0, 1, 4, 3, 0, 1, 4, 3, 8, 9
   ];
 
   var fullMelody = phrase1.concat(phrase2).concat(phrase3).concat(phrase4);
