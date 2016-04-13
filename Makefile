@@ -1,3 +1,5 @@
+all: nes.js megaman2.js
+
 nes.js: src/*.js
 	cat src/*.js > nes.js
 
