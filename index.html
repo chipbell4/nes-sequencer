@@ -9,13 +9,12 @@
 var TEMPO = 180;
         </script>
 
-        <script src="src/examples/megaman2/bass.js"></script>
-        <script src="src/examples/megaman2/drum.js"></script>
-        <script src="src/examples/megaman2/melody-rhythm.js"></script>
-        <script src="src/examples/megaman2/melody1.js"></script>
-        <script src="src/examples/megaman2/melody2.js"></script>
-        <script src="src/examples/megaman2/app.js"></script>
+        <script src="megaman2.js"></script>
     </head>
     <body>
+        <script>
+NesSequencer.init();
+NesSequencer.scheduleMelody(Megaman2.melody);
+        </script>
     </body>
 </html>
