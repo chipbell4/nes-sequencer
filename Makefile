@@ -1,4 +1,4 @@
-NES_FILES := music-tools.js nes-sequencer.js staccato.js
+NES_FILES := nes-sequencer.js music-tools.js staccato.js
 
 all: nes.js megaman2.js
 
