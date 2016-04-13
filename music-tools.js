@@ -36,4 +36,30 @@ var MusicTools = {
     var c4 = 261.63;
     return c4 * Math.pow(oneSemitone, semitones);
   },
+
+  parse: function(note) {
+    var durationMap = {
+      W: 4,
+      H: 2,
+      Q: 1,
+      E: 0.5,
+      T: 0.33,
+      S: 0.25
+    }
+    var volumeMap = {
+      pp: 0.1,
+      p: 0.2,
+      mp: 0.3,
+      mf: 0.4,
+      f: 0.5,
+      ff: 0.6
+    };
+
+    var split = note.split(' ');
+    var frequency = this.frequency(split[0]);
+    var duration = this.duration(TEMPO || 120, durationMap[split[1]] || 1);
+    var volume = volumeMap[2] || 0.5;
+
+    return { frequency: frequency, duration: duration, volume: volume };
+  }
 };
