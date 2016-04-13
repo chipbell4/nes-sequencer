@@ -4,6 +4,9 @@ This is a attempt to emulate the NES audio hardware using the Web Audio API. The
 * A triangle wave oscillator (typically used for the bass-line)
 * A noise channel
 
+## Getting the project setup, with examples
+After cloning the repo, simply run `make all` to concatenate files, and open the provided html file in a browser
+
 ## Building the oscillators
 The Web Audio API has built-in support for a triangle wave, but the others must be implemented.
 

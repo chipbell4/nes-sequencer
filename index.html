@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="nes-sequencer.js"></script>
-        <script src="music-tools.js"></script>
-        <script src="staccato.js"></script>
+        <script src="nes.js"></script>
 
         <script>
 var TEMPO = 180;
         </script>
 
-        <script src="bass.js"></script>
-        <script src="drum.js"></script>
-        <script src="melody-rhythm.js"></script>
-        <script src="melody1.js"></script>
-        <script src="melody2.js"></script>
-        <script src="app.js"></script>
+        <script src="megaman2.js"></script>
     </head>
     <body>
+        <script>
+NesSequencer.init();
+NesSequencer.scheduleMelody(Megaman2.melody);
+        </script>
     </body>
 </html>

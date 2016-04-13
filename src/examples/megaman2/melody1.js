@@ -1,4 +1,4 @@
-var MELODY1 = (function() {
+Megaman2.melody[NesSequencer.OSCILLATOR_TYPES.PWM1] = (function() {
   var scaleTones = ['C#5', 'D#5', 'E5', 'F#5', 'G#5', 'A#5', 'B5', 'C#6', 'D#6', 'E6'].map(MusicTools.frequency);
 
   var phrase1 = [
