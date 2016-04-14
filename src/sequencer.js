@@ -57,7 +57,7 @@ NES.Sequencer = (function() {
 
           // if we're at the last note, and we're past the last duration, turn off
           if(melodies[key][k+1] === undefined && finishedCurrentNote) {
-            sequencer.setPitch(key, 440, 0);
+            NES.Oscillators.setPitch(key, 440, 0);
             return;
           }
           
