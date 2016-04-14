@@ -20,9 +20,7 @@ var Arp = (function() {
       volume: 0.3
     }];
 
-    if(lead[i] == 'Eb5') {
-      notes = NES.Effects.Vibrato(notes, 5, 0.015);
-    }
+    notes = NES.Effects.Vibrato(notes, 5, 0.015);
 
     melody.PWM1 = melody.PWM1.concat(notes);
   }
