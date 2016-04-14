@@ -34,8 +34,8 @@ Megaman2.melody.PWM1 = (function() {
   
   // only make phrase1, 2, 3 staccato
   var phrase123Length = raw.length - phrase4.length;
-  var phrase123Staccato = Staccato(raw.slice(0, phrase123Length));
-  var phrase4Staccato = Staccato(raw.slice(phrase123Length), 0.99);
+  var phrase123Staccato = NES.Effects.Staccato(raw.slice(0, phrase123Length));
+  var phrase4Staccato = NES.Effects.Staccato(raw.slice(phrase123Length), 0.99);
   var full = phrase123Staccato.concat(phrase4Staccato);
 
   return full.concat(full);

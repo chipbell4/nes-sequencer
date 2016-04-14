@@ -10,7 +10,7 @@ Megaman2.melody.NOISE = (function() {
     { frequency: 8000, volume: 0.2, duration: sixteenth },
     { frequency: 8000, volume: 0.2, duration: sixteenth },
   ];
-  var fullDrumRiff = Staccato(drumRiff);
+  var fullDrumRiff = NES.Effects.Staccato(drumRiff);
   fullDrumRiff = fullDrumRiff.concat(fullDrumRiff);
   fullDrumRiff = fullDrumRiff.concat(fullDrumRiff);
   fullDrumRiff = fullDrumRiff.concat(fullDrumRiff);

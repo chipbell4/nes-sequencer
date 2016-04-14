@@ -11,7 +11,7 @@ Megaman2.melody.TRIANGLE = (function() {
     { frequency: cSharpBass, volume: 0.2, duration: sixteenth },
   ];
   // make staccato, then into an eight beat lick
-  riffOne = Staccato(riffOne);
+  riffOne = NES.Effects.Staccato(riffOne);
   riffOne = riffOne.concat(riffOne);
   riffOne = riffOne.concat(riffOne);
   riffOne = riffOne.concat(riffOne); // eight beats of the riff
