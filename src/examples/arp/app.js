@@ -2,15 +2,27 @@ var Arp = (function() {
   var tempo = 110;
 
   var melody = {
+    PWM2: [],
     TRIANGLE: [],
+    NOISE: [],
   };
 
+  // chords
   var chords = [
     ['Ab3', 'B3', 'Eb4'],
     ['Ab3', 'B3', 'E4'],
     ['Bb3', 'Db3', 'Gb4'],
     ['Bb3', 'Db3', 'E4', 'G4'],
   ];
+  chords.forEach(function(chord) {
+    var frequencies = chord.map(NES.MusicTools.frequency);
+    var duration = NES.MusicTools.duration(tempo, 4);
+
+    melody.PWM2 = melody.PWM2.concat(NES.Effects.Arpeggio(frequencies, duration, 0.1, 0.0));
+  });
+
+  melody.PWM2 = melody.PWM2.concat(melody.PWM2);
+  melody.PWM2 = melody.PWM2.concat(melody.PWM2);
 
   // Bass line
   ['Ab2', 'E2', 'Gb2', 'Eb2'].map(NES.MusicTools.frequency).forEach(function(frequency) {
