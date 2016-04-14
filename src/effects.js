@@ -44,11 +44,11 @@ NES.Effects = {
     var vibratoMelodyComponents = melody.map(function(note) {
       var expanded = [];
 
-      for(var t = 0; t < note.duration; t += 1000 / 60 ) {
-        var offsetRatio = 1 + vibratoPercentage * Math.sin(t * 2 * Math.PI / vibratoFrequency);
+      for(var t = 0; t < note.duration; t += 50 ) {
+        var offsetRatio = 1 + vibratoPercentage * Math.sin(t / 1000 * 2 * Math.PI * vibratoFrequency);
         expanded.push({
           volume: note.volume,
-          duration: 1000 / 60,
+          duration: 50,
           frequency: note.frequency * offsetRatio,
         });
       }
