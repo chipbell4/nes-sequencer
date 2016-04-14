@@ -28,7 +28,7 @@ NES.Sequencer = (function() {
      * { frequency: 440, volume: 0.2, duration: 1000 }, where frequency is in Hz, volume ranges between 0 and 1, and
      * duration is in millis.
      */
-    start: function(melodies) {
+    play: function(melodies) {
       this.stop();
 
       var startTimes = calculateStartTimes(melodies);

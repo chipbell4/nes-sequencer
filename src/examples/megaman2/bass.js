@@ -1,4 +1,4 @@
-Megaman2.melody[NesSequencer.OSCILLATOR_TYPES.TRI] = (function() {
+Megaman2.melody.TRIANGLE = (function() {
   var cSharpBass = MusicTools.frequency('C#3');
   var bBass = MusicTools.frequency('B2');
   var aBass = MusicTools.frequency('A2');

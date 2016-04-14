@@ -1,4 +1,4 @@
-Megaman2.melody[NesSequencer.OSCILLATOR_TYPES.NOISE] = (function() {
+Megaman2.melody.NOISE = (function() {
   var eighth = MusicTools.duration(TEMPO, 0.5);
   var sixteenth = MusicTools.duration(TEMPO, 0.25);
 
