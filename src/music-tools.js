@@ -1,4 +1,4 @@
-var MusicTools = {
+NES.MusicTools = {
   duration: function(tempo, noteType) {
     return (60 / tempo * noteType) * 1000;
   },

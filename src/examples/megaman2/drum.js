@@ -1,6 +1,6 @@
 Megaman2.melody.NOISE = (function() {
-  var eighth = MusicTools.duration(TEMPO, 0.5);
-  var sixteenth = MusicTools.duration(TEMPO, 0.25);
+  var eighth = NES.MusicTools.duration(TEMPO, 0.5);
+  var sixteenth = NES.MusicTools.duration(TEMPO, 0.25);
 
   var drumRiff = [
     { frequency: 8000, volume: 0.2, duration: eighth },

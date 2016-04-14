@@ -1,5 +1,5 @@
 Megaman2.melody.PWM2 = (function() {
-  var scaleTones = ['C#4', 'G#4', 'A4', 'A#4', 'B4','C#5', 'D#5', 'E5', 'B5', 'C#6'].map(MusicTools.frequency);
+  var scaleTones = ['C#4', 'G#4', 'A4', 'A#4', 'B4','C#5', 'D#5', 'E5', 'B5', 'C#6'].map(NES.MusicTools.frequency);
 
   var phrase1 = [
     5, 5, 5, 5, 5, 5, 1, 5, 5, 5, 5, 1, 5, 5, 4, 1
