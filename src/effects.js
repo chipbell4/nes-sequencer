@@ -53,6 +53,14 @@ NES.Effects = {
         });
       }
 
+      // correct any notes being too long
+      var totalLength = expanded.reduce(function(sum, vibratoNote) {
+        return sum + vibratoNote.duration;
+      }, 0);
+
+      var lastNoteReduction = totalLength - note.duration;
+      expanded[expanded.length - 1].duration -= lastNoteReduction;
+
       return expanded;
     });
 
