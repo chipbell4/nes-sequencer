@@ -33,7 +33,7 @@ NES.Sequencer = (function() {
 
       var startTimes = calculateStartTimes(melodies);
       var currentNoteIndices = {};
-      var currentNoteIndices = Object.keys(melodies).forEach(function(key) {
+      Object.keys(melodies).forEach(function(key) {
         currentNoteIndices[key] = 0;
       });
 
