@@ -2,10 +2,30 @@ var Arp = (function() {
   var tempo = 110;
 
   var melody = {
+    PWM1: [],
     PWM2: [],
     TRIANGLE: [],
     NOISE: [],
   };
+
+  // lead riff
+  var lead = ['Eb5', 'Db5', 'B4', 'Eb5', 'Eb5', 'Gb5', 'Ab5', 'Eb5'];
+  var rhythms = [2.5, 0.75, 0.75, 4, 2.5, 0.75, 0.75, 4];
+  for(var i = 0; i < 8; i++) {
+    var frequency = NES.MusicTools.frequency(lead[i]);
+    var duration = NES.MusicTools.duration(tempo, rhythms[i]);
+    melody.PWM1.push({
+      frequency: frequency,
+      duration: duration,
+      volume: 0.3
+    });
+  }
+  melody.PWM1 = melody.PWM1.concat(melody.PWM1);
+  melody.PWM1.unshift({
+    frequency: 440,
+    duration: NES.MusicTools.duration(tempo, 16),
+    volume: 0
+  });
 
   // chords
   var chords = [
