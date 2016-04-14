@@ -14,11 +14,17 @@ var Arp = (function() {
   for(var i = 0; i < 8; i++) {
     var frequency = NES.MusicTools.frequency(lead[i]);
     var duration = NES.MusicTools.duration(tempo, rhythms[i]);
-    melody.PWM1.push({
+    var notes = [{
       frequency: frequency,
       duration: duration,
       volume: 0.3
-    });
+    }];
+
+    if(lead[i] == 'Eb5') {
+      notes = NES.Effects.Vibrato(notes, 5, 0.015);
+    }
+
+    melody.PWM1 = melody.PWM1.concat(notes);
   }
   melody.PWM1 = melody.PWM1.concat(melody.PWM1);
   melody.PWM1.unshift({
