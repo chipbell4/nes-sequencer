@@ -11,7 +11,7 @@ megaman2.js: src/examples/megaman2/*.js
 arp.js: src/examples/arp/app.js
 	cat src/examples/arp/app.js > arp.js
 
-kk.js: src/examples/arp/*.js
+kk.js: src/examples/kk/*.js
 	cat src/examples/kk/*.js > kk.js
 
 clean:
