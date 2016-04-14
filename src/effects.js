@@ -39,4 +39,24 @@ NES.Effects = {
 
     return melody;
   },
+
+  Vibrato: function(melody, vibratoFrequency, vibratoPercentage) {
+    var vibratoMelodyComponents = melody.map(function(note) {
+      var expanded = [];
+
+      for(var t = 0; t < note.duration; t += 1000 / 60 ) {
+        var offsetRatio = 1 + vibratoPercentage * Math.sin(t * 2 * Math.PI / vibratoFrequency);
+        expanded.push({
+          volume: note.volume,
+          duration: 1000 / 60,
+          frequency: note.frequency * offsetRatio,
+        });
+      }
+
+      return expanded;
+    });
+
+    // flatten
+    return Array.prototype.concat.apply([], vibratoMelodyComponents);
+  }
 }
