@@ -1,3 +1,4 @@
 var Megaman2 = {
-  melody: {}
+  melody: {},
+  tempo: 180
 };

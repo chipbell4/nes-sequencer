@@ -1,8 +1,8 @@
 var RHYTHM = (function() {
   var durations = {
-    Q: NES.MusicTools.duration(TEMPO, 1),
-    E: NES.MusicTools.duration(TEMPO, 0.5),
-    S: NES.MusicTools.duration(TEMPO, 0.25)
+    Q: NES.MusicTools.duration(Megaman2.tempo, 1),
+    E: NES.MusicTools.duration(Megaman2.tempo, 0.5),
+    S: NES.MusicTools.duration(Megaman2.tempo, 0.25)
   };
   var volumes = {
     0: 0,

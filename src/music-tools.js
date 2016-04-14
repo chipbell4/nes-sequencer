@@ -37,7 +37,7 @@ NES.MusicTools = {
     return c4 * Math.pow(oneSemitone, semitones);
   },
 
-  parse: function(note) {
+  parse: function(note, tempo) {
     var durationMap = {
       W: 4,
       H: 2,
@@ -57,7 +57,7 @@ NES.MusicTools = {
 
     var split = note.split(' ');
     var frequency = this.frequency(split[0]);
-    var duration = this.duration(TEMPO || 120, durationMap[split[1]] || 1);
+    var duration = this.duration(tempo || 120, durationMap[split[1]] || 1);
     var volume = volumeMap[2] || 0.5;
 
     return { frequency: frequency, duration: duration, volume: volume };

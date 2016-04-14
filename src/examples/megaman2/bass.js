@@ -2,8 +2,8 @@ Megaman2.melody.TRIANGLE = (function() {
   var cSharpBass = NES.MusicTools.frequency('C#3');
   var bBass = NES.MusicTools.frequency('B2');
   var aBass = NES.MusicTools.frequency('A2');
-  var eighth = NES.MusicTools.duration(TEMPO, 0.5);
-  var sixteenth = NES.MusicTools.duration(TEMPO, 0.25);
+  var eighth = NES.MusicTools.duration(Megaman2.tempo, 0.5);
+  var sixteenth = NES.MusicTools.duration(Megaman2.tempo, 0.25);
 
   var riffOne = [
     { frequency: cSharpBass, volume: 0.2, duration: eighth },
