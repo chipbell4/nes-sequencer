@@ -48,5 +48,8 @@ KK.melody.PWM2 = (function() {
   melody = melody.concat(NES.Effects.Arpeggio(chords.B, KK.Q, 0.2));
   melody.push(rest('Q'));
 
+  // push the pick-up note rest
+  melody.unshift(rest('Q'));
+
   return melody;
 })();
