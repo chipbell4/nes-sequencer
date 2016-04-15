@@ -4,10 +4,10 @@ KK.melody.PWM2 = (function() {
   };
 
   var chords = {
-    E: ['E5', 'G#5', 'B5'].map(NES.MusicTools.frequency),
-    A: ['E5', 'A5', 'C#6'].map(NES.MusicTools.frequency),
-    D: ['F#5', 'A5', 'D6'].map(NES.MusicTools.frequency),
-    B: ['F#5', 'B5', 'D#6'].map(NES.MusicTools.frequency)
+    E: ['E4', 'G#4', 'B4'].map(NES.MusicTools.frequency),
+    A: ['E4', 'A4', 'C#5'].map(NES.MusicTools.frequency),
+    D: ['F#4', 'A4', 'D5'].map(NES.MusicTools.frequency),
+    B: ['F#4', 'B4', 'D#5'].map(NES.MusicTools.frequency)
   };
 
   var melody = [];
