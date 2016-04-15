@@ -13,6 +13,9 @@ KK.melody.PWM1 = (function() {
   var fancyRhythm1 = [ 'D',   'T',  'T', 'D',   'T', 'D',   'T',   'T',   'T',  'D',   'T', 'Q', 'Q', 'Q'];
   var melodyLine4 = [ 'A5', 'G#5', 'A5',  '', 'G#5',  '', 'F#5', 'G#5', 'F#5', 'E5', 'F#5',  '',  '', ''];
 
+  var rhythm2 =     [ 'D',   'T',  'T', 'D',   'T', 'D',   'T', 'D',  'D',  'T', 'D',  'T',  'T', 'D',   'T', 'D',  'T', 'D',   'T', 'D',  'T', 'D',   'T', 'D',   'D',  'T', 'D', 'Q', 'Q']; 
+  var melodyLine5 = ['E5', 'D#5', 'E5',  '', 'F#5',  '', 'G#5',  '', 'E5', 'A5',  '', 'A5', 'G#5', '', 'F#5',  '', 'E5', '',  'D#5',  '', 'E5',  '', 'F#5',  '', 'D#5', 'E5',  '',  '', '' ];
+
   var glueRhythmMelody = function(R, M) {
     for(var i = 0; i < R.length; i++) {
       var volume = M[i] == '' ? 0.0 : 0.5;
@@ -31,6 +34,7 @@ KK.melody.PWM1 = (function() {
   glueRhythmMelody(fancyRhythm1, melodyLine4);
   glueRhythmMelody(rhythm1, melodyLine1);
   glueRhythmMelody(rhythm1, melodyLine2);
+  glueRhythmMelody(rhythm2, melodyLine5);
 
   return melody;
 })();
