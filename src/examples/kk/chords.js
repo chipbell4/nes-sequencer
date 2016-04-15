@@ -13,28 +13,20 @@ KK.melody.PWM2 = (function() {
   var melody = [];
 
   // Emaj lick
-  melody.push(rest('Q'));
-  melody = melody.concat(NES.Effects.Arpeggio(chords.E, KK.Q, 0.2, 0));
-  melody.push(rest('Q'));
-  melody = melody.concat(NES.Effects.Arpeggio(chords.E, KK.Q, 0.2, 0));
+  melody.push(rest('H'));
+  melody = melody.concat(NES.Effects.Arpeggio(chords.E, KK.H, 0.2, 0));
 
   // Amaj
-  melody.push(rest('Q'));
-  melody = melody.concat(NES.Effects.Arpeggio(chords.A, KK.Q, 0.2, 0));
-  melody.push(rest('Q'));
-  melody = melody.concat(NES.Effects.Arpeggio(chords.A, KK.Q, 0.2, 0));
+  melody.push(rest('H'));
+  melody = melody.concat(NES.Effects.Arpeggio(chords.A, KK.H, 0.2, 0));
 
   // Dmaj
-  melody.push(rest('Q'));
-  melody = melody.concat(NES.Effects.Arpeggio(chords.D, KK.Q, 0.2, 0));
-  melody.push(rest('Q'));
-  melody = melody.concat(NES.Effects.Arpeggio(chords.D, KK.Q, 0.2, 0));
+  melody.push(rest('H'));
+  melody = melody.concat(NES.Effects.Arpeggio(chords.D, KK.H, 0.2, 0));
   
   // Bmaj
-  melody.push(rest('Q'));
-  melody = melody.concat(NES.Effects.Arpeggio(chords.B, KK.Q, 0.2, 0));
-  melody.push(rest('Q'));
-  melody = melody.concat(NES.Effects.Arpeggio(chords.B, KK.Q, 0.2, 0));
+  melody.push(rest('H'));
+  melody = melody.concat(NES.Effects.Arpeggio(chords.B, KK.H, 0.2, 0));
 
   // double up
   melody = melody.concat(melody);

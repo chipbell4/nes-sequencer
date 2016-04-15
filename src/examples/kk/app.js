@@ -5,5 +5,6 @@ var KK = {
   T: NES.MusicTools.duration(194, 1 / 3),
   D: NES.MusicTools.duration(194, 2 / 3),
   Q: NES.MusicTools.duration(194, 1),
+  H: NES.MusicTools.duration(194, 2),
   melody: { }
 };
