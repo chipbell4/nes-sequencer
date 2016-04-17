@@ -36,6 +36,14 @@ NES.Effects = {
       });
     }
 
+    // correct any notes being too long
+    var totalLength = melody.reduce(function(sum, note) {
+      return sum + note.duration;
+    }, 0);
+
+    var lastNoteReduction = totalLength - duration;
+    melody[melody.length - 1].duration -= lastNoteReduction;
+
     return melody;
   },
 
