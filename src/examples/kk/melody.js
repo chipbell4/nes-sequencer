@@ -18,7 +18,7 @@ KK.melody.PWM1 = (function() {
 
   var glueRhythmMelody = function(R, M) {
     for(var i = 0; i < R.length; i++) {
-      var volume = M[i] == '' ? 0.0 : 0.5;
+      var volume = M[i] == '' ? 0.0 : 0.1;
       var frequency = M[i] == '' ? 440 : NES.MusicTools.frequency(M[i]);
       melody.push({
         frequency: frequency,
