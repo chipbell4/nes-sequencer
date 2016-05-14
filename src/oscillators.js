@@ -33,7 +33,7 @@ NES.Oscillators = (function() {
 
     // Some wave forms are simply louder, so we add a global gain option for basic mixing
     var globalGain = context.createGain();
-    gain.gain.value = options.global_gain || 1;
+    globalGain.gain.value = options.global_gain || 1;
 
     oscillator.connect(gain);
     gain.connect(globalGain);
