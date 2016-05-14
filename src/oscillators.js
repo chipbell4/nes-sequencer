@@ -91,9 +91,9 @@ NES.Oscillators = (function() {
   };
   
   // initialize oscillators
-  oscillators.PWM1 = createOscillator();
+  oscillators.PWM1 = createOscillator({ global_gain: 0.25 });
   setPulseWidth('PWM1', 0.5);
-  oscillators.PWM2 = createOscillator();
+  oscillators.PWM2 = createOscillator({ global_gain: 0.25 });
   setPulseWidth('PWM2', 0.5);
   oscillators.TRIANGLE = createOscillator({ type: 'triangle' });
   oscillators.NOISE = createNoiseOscillator();
