@@ -17,5 +17,8 @@ mixing-test.js: src/examples/mixing-test/app.js
 kk.js: src/examples/kk/*.js
 	cat src/examples/kk/*.js > kk.js
 
+lint: src/*.js
+	node_modules/.bin/standard src/*.js
+
 clean:
 	rm -rf *.js
