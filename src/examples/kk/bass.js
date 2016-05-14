@@ -46,5 +46,5 @@ KK.melody.TRIANGLE = (function() {
   // pickup notes for melody intro
   melody.unshift(rest('Q'));
 
-  return melody;
+  return [rest('Q'), rest('Q')];
 })();
