@@ -3,14 +3,18 @@ KK.melody.NOISE = (function() {
     return { frequency: 0, volume: 0, duration: KK[durationName] };
   };
 
-  var rhythm =     ['Q',  'D',  'T',   'Q', 'D', 'T'];
-  var frequencies = [100, 5000, 5000, 1000, 5000, 5000];
+  var drumTypes = {
+    B: 100,
+    S: 1000,
+  };
+  var rhythm = ['Q', 'Q', 'D', 'T', 'D', 'T', 'D', 'T', 'Q', 'D', 'T', 'Q'];
+  var type =   ['B', 'S', 'B', 'B', 'S', 'B', '', 'B', 'S', 'B', 'B', 'S'];
+
   var melody = [];
-  
   for(var i = 0; i < rhythm.length; i++) {
     melody.push({
-      frequency: frequencies[i],
-      volume: 0.2,
+      frequency: drumTypes[type[i]] || drumTypes.B,
+      volume: type[i] !== '' ? 0.2 : 0.0,
       duration: KK[rhythm[i]]
     });
   }
