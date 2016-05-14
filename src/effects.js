@@ -27,7 +27,6 @@ NES.Effects = {
     var melody = [];
     for(var i = 0; i < totalNotes; i++) {
       var volume = startVolume + (endVolume - startVolume) * i / totalNotes;
-      console.log(volume);
       var frequencyIndex = i % frequencies.length;
 
       melody.push({
