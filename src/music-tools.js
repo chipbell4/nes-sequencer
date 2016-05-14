@@ -1,11 +1,11 @@
 module.exports = {
-  duration: function(tempo, noteType) {
-    return (60 / tempo * noteType) * 1000;
+  duration: function (tempo, noteType) {
+    return (60 / tempo * noteType) * 1000
   },
 
-  frequency: function(note) {
-    var octave = Number(note[note.length - 1]);
-    var pitch = note.substr(0, note.length - 1);
+  frequency: function (note) {
+    var octave = Number(note[note.length - 1])
+    var pitch = note.substr(0, note.length - 1)
     var pitchNames = [
       ['C', 'B#'],
       ['C#', 'Db'],
@@ -19,25 +19,25 @@ module.exports = {
       'A',
       ['A#', 'Bb'],
       'B'
-    ];
+    ]
 
     // find the pitch offset
-    var pitchOffset = 0;
-    for(pitchOffset = 0; pitchOffset < 12; pitchOffset++) {
-      if(pitchNames[pitchOffset] instanceof Array && pitchNames[pitchOffset].indexOf(pitch) != -1) {
-        break;
-      } else if(pitchNames[pitchOffset] == pitch) {
-        break;
+    var pitchOffset = 0
+    for (pitchOffset = 0; pitchOffset < 12; pitchOffset++) {
+      if (pitchNames[pitchOffset] instanceof Array && pitchNames[pitchOffset].indexOf(pitch) !== -1) {
+        break
+      } else if (pitchNames[pitchOffset] === pitch) {
+        break
       }
     }
 
-    var oneSemitone = Math.pow(2, 1/12);
-    var semitones = (octave - 4) * 12 + pitchOffset;
-    var c4 = 261.63;
-    return c4 * Math.pow(oneSemitone, semitones);
+    var oneSemitone = Math.pow(2, 1 / 12)
+    var semitones = (octave - 4) * 12 + pitchOffset
+    var c4 = 261.63
+    return c4 * Math.pow(oneSemitone, semitones)
   },
 
-  parse: function(note, tempo) {
+  parse: function (note, tempo) {
     var durationMap = {
       W: 4,
       H: 2,
@@ -53,13 +53,13 @@ module.exports = {
       mf: 0.4,
       f: 0.5,
       ff: 0.6
-    };
+    }
 
-    var split = note.split(' ');
-    var frequency = this.frequency(split[0]);
-    var duration = this.duration(tempo || 120, durationMap[split[1]] || 1);
-    var volume = volumeMap[2] || 0.5;
+    var split = note.split(' ')
+    var frequency = this.frequency(split[0])
+    var duration = this.duration(tempo || 120, durationMap[split[1]] || 1)
+    var volume = volumeMap[2] || 0.5
 
-    return { frequency: frequency, duration: duration, volume: volume };
+    return { frequency: frequency, duration: duration, volume: volume }
   }
-};
+}
