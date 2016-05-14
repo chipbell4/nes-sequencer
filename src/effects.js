@@ -36,13 +36,7 @@ NES.Effects = {
       });
     }
 
-    // correct any notes being too long
-    var totalLength = melody.reduce(function(sum, note) {
-      return sum + note.duration;
-    }, 0);
-
-    var lastNoteReduction = totalLength - duration;
-    melody[melody.length - 1].duration -= lastNoteReduction;
+    melody = this.ClampDuration(melody, duration);
 
     return melody;
   },
@@ -60,6 +54,8 @@ NES.Effects = {
         });
       }
 
+      melody = this.ClampDuration(expanded, note.duration);
+
       // correct any notes being too long
       var totalLength = expanded.reduce(function(sum, vibratoNote) {
         return sum + vibratoNote.duration;
@@ -69,9 +65,21 @@ NES.Effects = {
       expanded[expanded.length - 1].duration -= lastNoteReduction;
 
       return expanded;
-    });
+    }.bind(this));
 
     // flatten
     return Array.prototype.concat.apply([], vibratoMelodyComponents);
-  }
+  },
+
+  ClampDuration: function(melody, duration) {
+    // correct any notes being too long
+    var totalLength = melody.reduce(function(sum, note) {
+      return sum + note.duration;
+    }, 0);
+
+    var lastNoteReduction = totalLength - duration;
+    melody[melody.length - 1].duration -= lastNoteReduction;
+
+    return melody;
+  },
 }

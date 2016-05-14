@@ -34,5 +34,6 @@ KK.melody.PWM2 = (function() {
   // push the pick-up note rest
   melody.unshift(rest('Q'));
 
-  return melody;
+  //return melody;
+  return [ rest('Q'), rest('Q') ];
 })();
