@@ -1,4 +1,4 @@
-NES.Oscillators = (function() {
+module.exports = (function() {
 
   var context;
   try {

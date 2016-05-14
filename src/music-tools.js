@@ -1,4 +1,4 @@
-NES.MusicTools = {
+module.exports = {
   duration: function(tempo, noteType) {
     return (60 / tempo * noteType) * 1000;
   },

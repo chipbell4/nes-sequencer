@@ -3,7 +3,7 @@ NES_FILES := nes-main.js oscillators.js sequencer.js music-tools.js effects.js
 all: nes.js megaman2.js arp.js mixing-test.js kk.js
 
 nes.js: $(addprefix src/, $(NES_FILES))
-	cat $(addprefix src/, $(NES_FILES)) > nes.js
+	node_modules/.bin/browserify src/nes-main.js > nes.js
 
 megaman2.js: src/examples/megaman2/*.js
 	cat src/examples/megaman2/*.js > megaman2.js

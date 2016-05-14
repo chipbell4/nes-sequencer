@@ -1,4 +1,4 @@
-NES.Sequencer = (function() {
+module.exports = (function() {
   var sequencerInterval = null;
 
   var calculateStartTimes = function(melodies) {

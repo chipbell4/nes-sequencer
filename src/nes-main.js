@@ -1,11 +1,15 @@
 (function() {
-  var NES = {};
+  var NES = {
+    Effects: require('./effects'),
+    MusicTools: require('./music-tools'),
+    Oscillators: require('./oscillators'),
+    Sequencer: require('./sequencer'),
+  };
 
+  if(typeof window !== 'undefined') {
+    window.NES = NES;
+  }
   if(typeof module !== 'undefined') {
     module.exports = NES;
-  } else if(typeof window !== 'undefined') {
-    window.NES = NES;
-  } else {
-    throw Error('Nothing to attach to');
-  }
+  } 
 })();

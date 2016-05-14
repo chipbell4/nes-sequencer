@@ -1,4 +1,4 @@
-NES.Effects = {
+module.exports = {
   Staccato: function(melody, noteReduction) {
     var noteReduction = noteReduction || 0.5;
     var newMelody = [];
