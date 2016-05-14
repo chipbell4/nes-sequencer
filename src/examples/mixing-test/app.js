@@ -23,5 +23,5 @@ var MixingTest = {
 
 MixingTest.melody.PWM1 = MixingTest.generateMelody(1, 440, 8);
 MixingTest.melody.PWM2 = MixingTest.generateMelody(2, 440 * 2 / 3, 8);
-MixingTest.melody.PWM1 = MixingTest.generateMelody(3, 440 / 4, 8);
-MixingTest.melody.PWM1 = MixingTest.generateMelody(4, 1000, 8);
+MixingTest.melody.TRIANGLE = MixingTest.generateMelody(3, 440 / 4, 8);
+MixingTest.melody.NOISE = MixingTest.generateMelody(4, 1000, 8);
