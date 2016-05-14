@@ -1,15 +1,15 @@
-(function() {
+(function () {
   var NES = {
     Effects: require('./effects'),
     MusicTools: require('./music-tools'),
     Oscillators: require('./oscillators'),
-    Sequencer: require('./sequencer'),
-  };
-
-  if(typeof window !== 'undefined') {
-    window.NES = NES;
+    Sequencer: require('./sequencer')
   }
-  if(typeof module !== 'undefined') {
-    module.exports = NES;
-  } 
-})();
+
+  if (typeof window !== 'undefined') {
+    window.NES = NES
+  }
+  if (typeof module !== 'undefined') {
+    module.exports = NES
+  }
+})()
