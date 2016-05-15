@@ -1,6 +1,6 @@
 var Oscillators = require('./oscillators')
 
-var CYCLE_LENGTH_IN_MS = 1000 / 60
+var CYCLE_LENGTH_IN_MS = Math.round(1000 / 60)
 var sequencerInterval = null
 
 var convertDurationsToCycles = function (melody) {
@@ -21,20 +21,6 @@ var calculateStartCyclesForMelody = function (melody) {
   return melody
 }
 
-var calculateStartTimes = function (melodies) {
-  var startTimes = {}
-  Object.keys(melodies).forEach(function (key) {
-    startTimes[key] = []
-    var runningSum = 0
-    melodies[key].forEach(function (note) {
-      startTimes[key].push(runningSum)
-      runningSum += note.duration
-    })
-  })
-
-  return startTimes
-}
-
 var initializePitches = function (melodies) {
   Object.keys(melodies).forEach(function (key) {
     Oscillators.setPitch(key, melodies[key][0].frequency, melodies[key][0].volume)
@@ -51,52 +37,28 @@ module.exports = {
   play: function (melodies) {
     this.stop()
 
-    var startTimes = calculateStartTimes(melodies)
-    var currentNoteIndices = {}
-    Object.keys(melodies).forEach(function (key) {
-      currentNoteIndices[key] = 0
-    })
-
     initializePitches(melodies)
 
-    var previousFrame
-    var currentFrame
-    var timeElapsed = 0
+    // calculate the cycle length and start cycle for each melody note
+    Object.keys(melodies).forEach(function (key) {
+      var withCycle = convertDurationsToCycles(melodies[key])
+      melodies[key] = calculateStartCyclesForMelody(withCycle)
+    })
+
+    var currentCycle = 0
     sequencerInterval = setInterval(function () {
-      // update frame time
-      if (previousFrame === undefined) {
-        previousFrame = currentFrame = Date.now()
-      }
-      timeElapsed += currentFrame - previousFrame
-      previousFrame = currentFrame
-      currentFrame = Date.now()
-
-      Object.keys(melodies).forEach(function (key) {
-        var k = currentNoteIndices[key]
-        var endTimeForCurrentNote = startTimes[key][k] + melodies[key][k].duration
-        var finishedCurrentNote = endTimeForCurrentNote < timeElapsed
-
-        // if we're at the last note, and we're past the last duration, turn off
-        if (melodies[key][k + 1] === undefined && finishedCurrentNote) {
-          Oscillators.setPitch(key, 440, 0)
-          return
-        }
-
-        // if we're at the last note, break out
-        if (melodies[key][k + 1] === undefined) {
-          return
-        }
-
-        // if we haven't crossed into the next note, we've nothing to do
-        if (!finishedCurrentNote) {
-          return
-        }
-
-        // otherwise, our time has just crossed over into the next note, update everything
-        currentNoteIndices[key]++
-        Oscillators.setPitch(key, melodies[key][k + 1].frequency, melodies[key][k + 1].volume)
+      Object.keys(melodies).forEach(function (oscillatorType) {
+        // find the note that should be playing (based on current cycle), and play it
+        melodies[oscillatorType]
+          .filter(function (note) {
+            return note.start_cycle === currentCycle
+          })
+          .forEach(function (note) {
+            Oscillators.setPitch(oscillatorType, note.frequency, note.volume)
+          })
       })
-    }, 10)
+      currentCycle += 1
+    }, CYCLE_LENGTH_IN_MS)
   },
 
   stop: function () {
