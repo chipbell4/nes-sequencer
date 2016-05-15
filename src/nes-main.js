@@ -3,7 +3,8 @@
     Effects: require('./effects'),
     MusicTools: require('./music-tools'),
     Oscillators: require('./oscillators'),
-    Sequencer: require('./sequencer')
+    Sequencer: require('./sequencer'),
+    Mml: require('./mml')
   }
 
   if (typeof window !== 'undefined') {
