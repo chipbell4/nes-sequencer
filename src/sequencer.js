@@ -11,12 +11,19 @@ var convertDurationsToCycles = function (melody) {
 
 var calculateStartCyclesForMelody = function (melody) {
   var currentStartCycle = 0
-  melody.forEach(function (note) {
-    note.start_cycle = currentStartCycle
-    currentStartCycle += note.cycles
-  })
+  
+  return melody.map(function (note) {
+    var newNote = {
+      frequency: note.frequency,
+      volume: note.volume,
+      cycles: note.cyles,
+      start_cycle: currentStartCycle
+    };
 
-  return melody
+    currentStartCycle += note.cycles
+
+    return newNote;
+  })
 }
 
 var initializePitches = function (melodies) {
