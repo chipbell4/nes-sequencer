@@ -1,11 +1,10 @@
 var MixingTest = {
   melody: {},
-  duration: 750,
   generateMelody: function(beatToPlayOn, frequency, repeatCount) {
     var rawMelody = [1, 2, 3, 4].map(function(beat) {
       var volume = beat == beatToPlayOn ? 1 : 0;
       return {
-        duration: MixingTest.duration,
+        cycles: 60,
         volume: volume,
         frequency: frequency
       };

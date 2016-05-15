@@ -3,26 +3,20 @@ var Oscillators = require('./oscillators')
 var CYCLE_LENGTH_IN_MS = 1000 / 60
 var sequencerInterval = null
 
-var convertDurationsToCycles = function (melody) {
-  return melody.map(function (note) {
-    return { frequency: note.frequency, volume: note.volume, cycles: Math.round(note.duration / CYCLE_LENGTH_IN_MS) }
-  })
-}
-
 var calculateStartCyclesForMelody = function (melody) {
   var currentStartCycle = 0
-  
+
   return melody.map(function (note) {
     var newNote = {
       frequency: note.frequency,
       volume: note.volume,
       cycles: note.cyles,
       start_cycle: currentStartCycle
-    };
+    }
 
     currentStartCycle += note.cycles
 
-    return newNote;
+    return newNote
   })
 }
 
@@ -36,8 +30,8 @@ module.exports = {
   /**
    * Schedules a melody to be played. melodies, in this case is an object, where the keys are the oscillator type
    * (NesSequencer.OSCILLATOR_TYPES.PWM1), and the associated values is an array of objects, each looking like this:
-   * { frequency: 440, volume: 0.2, duration: 1000 }, where frequency is in Hz, volume ranges between 0 and 1, and
-   * duration is in millis.
+   * { frequency: 440, volume: 0.2, cycles: 10 }, where frequency is in Hz, volume ranges between 0 and 1, and cycles
+   * is the number of cpu cycles to use
    */
   play: function (melodies) {
     this.stop()
@@ -46,8 +40,7 @@ module.exports = {
 
     // calculate the cycle length and start cycle for each melody note
     Object.keys(melodies).forEach(function (key) {
-      var withCycle = convertDurationsToCycles(melodies[key])
-      melodies[key] = calculateStartCyclesForMelody(withCycle)
+      melodies[key] = calculateStartCyclesForMelody(melodies[key])
     })
 
     var currentCycle = 0

@@ -1,10 +1,15 @@
-var KK = {
-  tempo: 194,
-  // Some constants for common durations
-  S: NES.MusicTools.duration(194, 1 / 6),
-  T: NES.MusicTools.duration(194, 1 / 3),
-  D: NES.MusicTools.duration(194, 2 / 3),
-  Q: NES.MusicTools.duration(194, 1),
-  H: NES.MusicTools.duration(194, 2),
-  melody: { }
-};
+var KK = (function() {
+  var tempo = 194;
+  var SIXTH = Math.round(1/ 6 * 3600 / tempo);
+
+  return {
+    tempo: 194,
+    // Some constants for common durations
+    S: SIXTH,
+    T: SIXTH * 2,
+    D: SIXTH * 4,
+    Q: SIXTH * 6,
+    H: SIXTH * 12,
+    melody: { }
+  };
+})();

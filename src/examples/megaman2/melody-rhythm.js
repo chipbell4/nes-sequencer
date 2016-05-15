@@ -1,9 +1,4 @@
 var RHYTHM = (function() {
-  var durations = {
-    Q: NES.MusicTools.duration(Megaman2.tempo, 1),
-    E: NES.MusicTools.duration(Megaman2.tempo, 0.5),
-    S: NES.MusicTools.duration(Megaman2.tempo, 0.25)
-  };
   var volumes = {
     0: 0,
     1: 0.2
@@ -24,7 +19,7 @@ var RHYTHM = (function() {
   for(var i = 0; i < N; i++) {
     raw.push({
       frequency: 440,
-      duration: durations[fullDurations[i]],
+      cycles: Megaman2[fullDurations[i]],
       volume: volumes[fullRests[i]],
     });
   }

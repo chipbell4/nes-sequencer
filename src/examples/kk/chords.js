@@ -1,6 +1,6 @@
 KK.melody.PWM2 = (function() {
-  var rest = function(durationName) {
-    return { frequency: 0, volume: 0, duration: KK[durationName] };
+  var rest = function(cyclesName) {
+    return { frequency: 0, volume: 0, cycles: KK[cyclesName] };
   };
 
   var chords = {

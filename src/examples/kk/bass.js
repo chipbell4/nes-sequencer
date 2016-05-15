@@ -1,6 +1,6 @@
 KK.melody.TRIANGLE = (function() {
-  var rest = function(durationName) {
-    return { frequency: 0, volume: 0, duration: KK[durationName] };
+  var rest = function(cyclesName) {
+    return { frequency: 0, volume: 0, cycles: KK[cyclesName] };
   };
 
   var melody = [];
@@ -12,14 +12,14 @@ KK.melody.TRIANGLE = (function() {
       melody.push({
         frequency: frequency,
         volume: volume,
-        duration: KK[R[i]]
+        cycles: KK[R[i]]
       });
     }
   }
 
 
   // wait 7 bars for the intro
-  melody.push({ frequency: 0, volume: 0, duration: 7 * 4 * KK.Q });
+  melody.push({ frequency: 0, volume: 0, cycles: 7 * 4 * KK.Q });
 
   // bass pickup
   var pickupRhythm = [ 'T', 'D',  'T',  'D',  'D',   'T',   'T', 'D'];

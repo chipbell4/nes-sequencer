@@ -1,6 +1,6 @@
 KK.melody.PWM1 = (function() {
-  var rest = function(durationName) {
-    return { frequency: 0, volume: 0, duration: KK[durationName] };
+  var rest = function(cyclesName) {
+    return { frequency: 0, volume: 0, cycles: KK[cyclesName] };
   };
 
   var melody = [];
@@ -23,7 +23,7 @@ KK.melody.PWM1 = (function() {
       melody.push({
         frequency: frequency,
         volume: volume,
-        duration: KK[R[i]]
+        cycles: KK[R[i]]
       });
     }
   }

@@ -1,6 +1,6 @@
 KK.melody.NOISE = (function() {
-  var rest = function(durationName) {
-    return { frequency: 0, volume: 0, duration: KK[durationName] };
+  var rest = function(cyclesName) {
+    return { frequency: 0, volume: 0, cycles: KK[cyclesName] };
   };
 
   var drumTypes = {
@@ -15,7 +15,7 @@ KK.melody.NOISE = (function() {
     melody.push({
       frequency: drumTypes[type[i]] || drumTypes.B,
       volume: type[i] !== '' ? 0.2 : 0.0,
-      duration: KK[rhythm[i]]
+      cycles: KK[rhythm[i]]
     });
   }
 
