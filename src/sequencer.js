@@ -1,6 +1,7 @@
 var Oscillators = require('./oscillators')
 
 module.exports = (function () {
+  var CYCLE_LENGTH = 1000 / 60
   var sequencerInterval = null
 
   var calculateStartTimes = function (melodies) {
