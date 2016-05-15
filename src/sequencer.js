@@ -6,7 +6,7 @@ var sequencerInterval = null
 var convertDurationsToCycles = function (melody) {
   return melody.map(function (note) {
     return { frequency: note.frequency, volume: note.volume, cycles: Math.round(note.duration / CYCLE_LENGTH_IN_MS) }
-  });
+  })
 }
 
 var calculateStartCyclesForMelody = function (melody) {
