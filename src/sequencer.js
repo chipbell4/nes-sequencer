@@ -1,6 +1,6 @@
 var Oscillators = require('./oscillators')
 
-var CYCLE_LENGTH_IN_MS = Math.round(1000 / 60)
+var CYCLE_LENGTH_IN_MS = 1000 / 60
 var sequencerInterval = null
 
 var convertDurationsToCycles = function (melody) {
