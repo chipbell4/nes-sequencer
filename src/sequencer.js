@@ -74,5 +74,7 @@ module.exports = {
     oscillatorTypes.forEach(function (oscillator) {
       Oscillators.setPitch(oscillator, 440, 0)
     })
-  }
+  },
+
+  CYCLE_LENGTH_IN_MS: CYCLE_LENGTH_IN_MS
 }
