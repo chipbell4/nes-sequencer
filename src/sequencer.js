@@ -1,7 +1,25 @@
 var Oscillators = require('./oscillators')
 
-var CYCLE_LENGTH = 1000 / 60
+var CYCLE_LENGTH_IN_MS = 1000 / 60
 var sequencerInterval = null
+
+var convertDurationsToCycles = function (melody) {
+  melody.forEach(function (note) {
+    note.cycles = Math.round(note.duration / CYCLE_LENGTH_IN_MS)
+  })
+
+  return melody
+}
+
+var calculateStartCyclesForMelody = function (melody) {
+  var currentStartCycle = 0
+  melody.forEach(function (note) {
+    note.start_cycle = currentStartCycle
+    currentStartCycle += note.cycles
+  })
+
+  return melody
+}
 
 var calculateStartTimes = function (melodies) {
   var startTimes = {}
