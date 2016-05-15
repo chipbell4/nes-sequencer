@@ -1,5 +1,7 @@
 var Arp = (function() {
   var tempo = 110;
+  var CYCLES_FOR_SIXTEENTH = Math.round(0.25 * 3600 / tempo);
+  var CYCLES_FOR_QUARTER = CYCLES_FOR_SIXTEENTH * 4; // so we have a multiple of 4
 
   var melody = {
     PWM1: [],
@@ -12,12 +14,10 @@ var Arp = (function() {
   var lead = ['Eb5', 'Db5', 'B4', 'Eb5', 'Eb5', 'Gb5', 'Ab5', 'Eb5'];
   var rhythms = [2.5, 0.75, 0.75, 4, 2.5, 0.75, 0.75, 4];
   for(var i = 0; i < 8; i++) {
-    var frequency = NES.MusicTools.frequency(lead[i]);
-    var duration = NES.MusicTools.duration(tempo, rhythms[i]);
     var notes = [{
-      frequency: frequency,
-      duration: duration,
-      volume: 0.3
+      frequency: NES.MusicTools.frequency(lead[i]),
+      cycles: Math.round(CYCLES_FOR_QUARTER * rhythms[i]),
+      volume: 1.0
     }];
 
     notes = NES.Effects.Vibrato(notes, 5, 0.015);
@@ -27,7 +27,12 @@ var Arp = (function() {
   melody.PWM1 = melody.PWM1.concat(melody.PWM1);
   melody.PWM1.unshift({
     frequency: 440,
-    duration: NES.MusicTools.duration(tempo, 16),
+    cycles: CYCLES_FOR_QUARTER * 16,
+    volume: 0
+  });
+  melody.PWM1.push({
+    frequency: 440,
+    cycles: 1,
     volume: 0
   });
 
@@ -40,9 +45,9 @@ var Arp = (function() {
   ];
   chords.forEach(function(chord) {
     var frequencies = chord.map(NES.MusicTools.frequency);
-    var duration = NES.MusicTools.duration(tempo, 4);
+    var cycles = CYCLES_FOR_QUARTER * 4;
 
-    melody.PWM2 = melody.PWM2.concat(NES.Effects.Arpeggio(frequencies, duration, 0.1, 0.0));
+    melody.PWM2 = melody.PWM2.concat(NES.Effects.Arpeggio(frequencies, cycles, 0.5, 0.0));
   });
 
   melody.PWM2 = melody.PWM2.concat(melody.PWM2);
@@ -50,16 +55,17 @@ var Arp = (function() {
 
   // Bass line
   ['Ab2', 'E2', 'Gb2', 'Eb2'].map(NES.MusicTools.frequency).forEach(function(frequency) {
-    var eighth = NES.MusicTools.duration(tempo, 0.5);
-    var quarter = NES.MusicTools.duration(tempo, 1.0);
-    var halfPlusEighth = NES.MusicTools.duration(tempo, 2.5);
-    melody.TRIANGLE.push({ frequency: frequency, duration: eighth, volume: 1.0 });
-    melody.TRIANGLE.push({ frequency: frequency, duration: quarter, volume: 0.0 });
-    melody.TRIANGLE.push({ frequency: frequency, duration: halfPlusEighth, volume: 1.0 });
+    var eighth = Math.round(0.5 * CYCLES_FOR_QUARTER);
+    var quarter = CYCLES_FOR_QUARTER;
+    var halfPlusEighth = Math.round(2.5 * CYCLES_FOR_QUARTER);
+    melody.TRIANGLE.push({ frequency: frequency, cycles: eighth, volume: 1.0 });
+    melody.TRIANGLE.push({ frequency: frequency, cycles: quarter, volume: 0.0 });
+    melody.TRIANGLE.push({ frequency: frequency, cycles: halfPlusEighth, volume: 1.0 });
   });
 
   melody.TRIANGLE = melody.TRIANGLE.concat(melody.TRIANGLE);
   melody.TRIANGLE = melody.TRIANGLE.concat(melody.TRIANGLE);
+  melody.TRIANGLE.push({ frequency: 440, cycles: 1, volume: 0 });
 
   // Drums
   var pitches = [100, 3000, 500, 100, 3000, 3000, 3000, 500];
@@ -67,7 +73,7 @@ var Arp = (function() {
     return {
       frequency: frequency,
       volume: 0.5,
-      duration: NES.MusicTools.duration(tempo, 0.5),
+      cycles: 2 * CYCLES_FOR_SIXTEENTH
     };
   });
   melody.NOISE = melody.NOISE.concat(melody.NOISE);

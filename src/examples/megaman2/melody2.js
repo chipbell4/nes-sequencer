@@ -25,7 +25,7 @@ Megaman2.melody.PWM2 = (function() {
     }
 
     return {
-      duration: note.duration,
+      cycles: note.cycles,
       volume: note.volume,
       frequency: frequency
     };
