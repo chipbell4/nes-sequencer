@@ -15,6 +15,17 @@ module.exports = {
     var chordGroupings = [[]]
     var current = iterator.next()
     var lastTime = current.value.time
+
+    // handle the starting rest as well
+    if(lastTime > 0) {
+      chordGroupings[chordGroupings.length - 1].push({
+        frequency: 440,
+        volume: 0,
+        cycles: Math.round(lastTime * 60),
+      });
+      chordGroupings.push([]);
+    }
+
     var lastNoteEnd = current.value.duration + lastTime;
     while (current.value.type !== 'end') {
       // check if we need to add a rest. We'll need to add a rest if the current note ends before the next one starts
