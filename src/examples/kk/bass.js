@@ -1,7 +1,7 @@
 KK.melody.TRIANGLE = (function() {
   var bassMml = [
     't' + KK.tempo,
-    'v100',
+    'v75',
     'l4 r', // pickup
     '<<',
     'l12',
