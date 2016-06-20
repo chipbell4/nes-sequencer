@@ -8,7 +8,8 @@ var noteNumberToFrequency = function (noteNumber) {
 }
 
 var cycles = function(duration) {
-  return Math.round(duration * 60);
+  var alpha = 100000000;
+  return Math.round(Math.round(duration * 60 * alpha) / alpha);
 }
 
 module.exports = {
