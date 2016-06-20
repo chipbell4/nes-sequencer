@@ -3,7 +3,7 @@ var KK = (function() {
   var SIXTH = Math.round(1/ 6 * 3600 / tempo);
 
   return {
-    tempo: 194,
+    tempo: 200,
     // Some constants for common durations
     S: SIXTH,
     T: SIXTH * 2,
