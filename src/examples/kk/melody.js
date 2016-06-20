@@ -1,6 +1,7 @@
 KK.melody.PWM1 = (function() {
   var mainThemeMML = [
     't' + KK.tempo,
+    'v20',
     '> e6 d+12 e < b g+ a6 b12 r r r',
     '> d6 c+12 d e < > c+ < a6 b12 r r r',
     '> e6 d+12 e f+ g+ e6 a12 r r r',
