@@ -11,7 +11,7 @@ KK.melody.NOISE = (function() {
   var rhythmMML = [
     't' + KK.tempo,
     'v100',
-    '<< c6 c12 /: c >>> c <<< c6 c12 >>> c <<< :/16'
+    '<< c6 c12 /: c >>> c <<< c6 c12 >>> c <<< :/48'
   ].join(' ');
   var melody = NES.Mml.mmlToMelody(rhythmMML);
   return NES.Effects.Staccato(melody, 0.25);
