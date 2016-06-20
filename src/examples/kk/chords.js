@@ -36,12 +36,20 @@ KK.melody.PWM2 = (function() {
     '[b d+ f+] rrr',
     'l4 rrr',
     
-    // more melody chords
+    // Reprise
     'l8',
     'rr[ e g+ b]r rr[e g+ b]r',
     'rr[ e a c+]r rr[e a c+]r',
     'rr[ d a f+]r rr[d a f+]r',
     'rr[d+ f+ b]r rr[d+ f+ b]r',
+    'rr[ e g+ b]r rr[e g+ b]r',
+    'rr[ e a c+]r rr[e a c+]r',
+    'l12',
+    '[ceg] r6 [ceg] r6 [df+a]4^6 [eg+b]',
+    'l4 rrrr l12',
+    '[ceg] r6 [ceg] r6 [df+a]4^6 [eg+b]',
+    'l4 rrrr l12',
+    '[ceg] r6 [ceg] r6 [df+a]4^6 [eg+b]2',
   ].join(' ');
 
   return NES.Mml.mmlToMelody(chordsMml);
