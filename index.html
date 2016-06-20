@@ -8,11 +8,28 @@
         <script src="kk.js"></script>
     </head>
     <body>
-        <script>
-NES.Sequencer.play(Megaman2.melody);
-//NES.Sequencer.play(Arp.melody);
-//NES.Sequencer.play(MixingTest.melody);
-//NES.Sequencer.play(KK.melody);
+        <button id="megaman">Megaman</button></br>
+        <button id="kk">Kart Kingdom</button>
+<script>
+var playerFor = function(songName) {
+    return function() {
+        NES.Sequencer.stop();
+        NES.Sequencer.play(window[songName].melody);
+    };
+};
+
+var A = function(id, song) {
+    var playSong = playerFor(song);
+    document.getElementById(id).addEventListener('click', playSong);
+};
+
+A('megaman', 'Megaman2');
+A('kk', 'KK');
+
+var melody = {
+    PWM1: NES.Mml.mmlToMelody('cdefgab')
+}
+NES.Sequencer.play(melody);
         </script>
     </body>
 </html>
