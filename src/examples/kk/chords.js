@@ -8,11 +8,6 @@ KK.melody.PWM2 = (function() {
     '[g+ c d+]^', 
     '[g+ b f]^',
     '[f+ a+ c+ e]^',
-  ].join(' ');
-
-  var bridgeTagMML = [
-    't' + KK.tempo,
-    'v20',
     'l16',
     '[b d+ f+] rrr',
     '[b d+ f+] rrr',
@@ -21,6 +16,6 @@ KK.melody.PWM2 = (function() {
     '[b d+ f+] rrr',
   ].join(' ');
 
-  var bridge = NES.Mml.mmlToMelody(bridgeChordsMML).concat(NES.Mml.mmlToMelody(bridgeTagMML));
+  var bridge = NES.Mml.mmlToMelody(bridgeChordsMML);
   return bridge;
 })();
