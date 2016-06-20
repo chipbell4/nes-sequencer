@@ -1,5 +1,5 @@
 KK.melody.PWM1 = (function() {
-  var mainThemeMML = [
+  var melodyMML = [
     't' + KK.tempo,
     'v20',
     '> e6 d+12 e < b g+ a6 b12 r r r',
@@ -11,5 +11,5 @@ KK.melody.PWM1 = (function() {
     '> e6 d+12 e f+ g+ e6 a a12 g+ f+ e d+ e f+ d+6 e12 r r r',
   ].join(' ');
 
-  return NES.Mml.mmlToMelody(mainThemeMML);
+  return NES.Mml.mmlToMelody(melodyMML);
 })();
