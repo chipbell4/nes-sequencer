@@ -17,8 +17,6 @@ module.exports = {
     var lastTime = current.value.time
     var lastNoteEnd = current.value.duration + lastTime;
     while (current.value.type !== 'end') {
-      console.log('CURRENT:', current);
-
       // check if we need to add a rest. We'll need to add a rest if the current note ends before the next one starts
       if(current.value.time > lastNoteEnd) {
         var restLength = current.value.time - lastNoteEnd;

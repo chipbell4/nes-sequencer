@@ -1,10 +1,6 @@
 KK.melody.PWM1 = (function() {
-  var rest = function(cyclesName) {
-    return { frequency: 0, volume: 0, cycles: KK[cyclesName] };
-  };
-
   var mainThemeMML = [
-    't190',
+    't' + KK.tempo,
     '> e6 d+12 e < b g+ a6 b12 r r r',
     '> d6 c+12 d e < > c+ < a6 b12 r r r',
     '> e6 d+12 e f+ g+ e6 a12 r r r',
