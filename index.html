@@ -10,6 +10,7 @@
     <body>
         <button id="megaman">Megaman</button></br>
         <button id="kk">Kart Kingdom</button>
+        <button id="stop">Stop</button>
 <script>
 var playerFor = function(songName) {
     return function() {
@@ -25,11 +26,7 @@ var A = function(id, song) {
 
 A('megaman', 'Megaman2');
 A('kk', 'KK');
-
-var melody = {
-    PWM1: NES.Mml.mmlToMelody('cdefgab')
-}
-NES.Sequencer.play(melody);
+document.getElementById('stop').addEventListener('click', NES.Sequencer.stop.bind(NES.Sequencer));
         </script>
     </body>
 </html>
