@@ -10,7 +10,7 @@ var calculateStartCyclesForMelody = function (melody) {
     var newNote = {
       frequency: note.frequency,
       volume: note.volume,
-      cycles: note.cyles,
+      cycles: note.cycles,
       start_cycle: currentStartCycle
     }
 
