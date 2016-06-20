@@ -1,4 +1,4 @@
-NES_FILES := nes-main.js oscillators.js sequencer.js music-tools.js effects.js
+NES_FILES := nes-main.js oscillators.js sequencer.js music-tools.js effects.js mml.js
 
 all: nes.js megaman2.js arp.js mixing-test.js kk.js
 
