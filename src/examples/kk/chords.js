@@ -14,6 +14,14 @@ KK.melody.PWM2 = (function() {
     'rr[ e a c+]r rr[e a c+]r',
     'rr[ d a f+]r rr[d a f+]r',
     'rr[d+ f+ b]r rr[d+ f+ b]r',
+    'rr[ e g+ b]r rr[e g+ b]r',
+    'rr[ e a c+]r rr[e a c+]r',
+    'rr[ d a f+]r rr[d a f+]r',
+    'rr[d+ f+ b]r rr[d+ f+ b]r',
+    'rr[ e g+ b]r rr[e g+ b]r',
+    'rr[ e a c+]r rr[e a c+]r',
+    'rr[d+ f+ b]r rr[d+ f+ b]r',
+    'rr[ e g+ b]r rr[e g+ b]r',
     
     // bridge chords
     'l1',
