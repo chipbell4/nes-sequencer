@@ -7,6 +7,10 @@ var noteNumberToFrequency = function (noteNumber) {
   return 440 * Math.pow(2, halftoneOffset / 12)
 }
 
+var cycles = function(duration) {
+  return Math.round(duration * 60);
+}
+
 module.exports = {
   mmlToMelody: function (mmlString) {
     var iterator = new MMLIterator(mmlString)
@@ -21,7 +25,7 @@ module.exports = {
       chordGroupings[chordGroupings.length - 1].push({
         frequency: 440,
         volume: 0,
-        cycles: Math.round(lastTime * 60),
+        cycles: cycles(lastTime),
       });
       chordGroupings.push([]);
     }
@@ -34,7 +38,7 @@ module.exports = {
         chordGroupings.push([{
           frequency: 440,
           volume: 0,
-          cycles: Math.round(restLength * 60),
+          cycles: cycles(restLength),
         }]);
         chordGroupings.push([]);
       }
@@ -47,7 +51,7 @@ module.exports = {
       chordGroupings[chordGroupings.length - 1].push({
         frequency: noteNumberToFrequency(current.value.noteNumber),
         volume: current.value.velocity / 127,
-        cycles: Math.round(current.value.duration * 60)
+        cycles: cycles(current.value.duration),
       })
 
       lastTime = current.value.time
