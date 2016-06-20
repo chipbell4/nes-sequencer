@@ -37,7 +37,7 @@ module.exports = {
       if(current.value.time > lastNoteEnd) {
         var restLength = current.value.time - lastNoteEnd;
         chordGroupings.push([{
-          frequency: 440,
+          frequency: noteNumberToFrequency(current.value.noteNumber),
           volume: 0,
           cycles: cycles(restLength),
         }]);
