@@ -15,9 +15,22 @@ module.exports = {
     var chordGroupings = [[]]
     var current = iterator.next()
     var lastTime = current.value.time
+    var lastNoteEnd = current.value.duration + lastTime;
     while (current.value.type !== 'end') {
+      console.log('CURRENT:', current);
+
+      // check if we need to add a rest. We'll need to add a rest if the current note ends before the next one starts
+      if(current.value.time > lastNoteEnd) {
+        var restLength = current.value.time - lastNoteEnd;
+        chordGroupings.push([{
+          frequency: 440,
+          volume: 0,
+          cycles: Math.round(restLength * 60),
+        }]);
+        chordGroupings.push([]);
+      }
       // if our current note doesn't occur at the same time as the last one, create a new chord grouping
-      if (current.value.time !== lastTime) {
+      else if (current.value.time !== lastTime) {
         chordGroupings.push([])
       }
 
@@ -29,6 +42,7 @@ module.exports = {
       })
 
       lastTime = current.value.time
+      lastNoteEnd = current.value.duration + current.value.time;
 
       current = iterator.next()
     }
