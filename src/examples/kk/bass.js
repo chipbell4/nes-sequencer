@@ -28,7 +28,7 @@ KK.melody.TRIANGLE = (function() {
     'g+ r6^6 g+ g+4 r4 g+ r6^6 g+ g+4 r4',
     'c+ r6^6 c+ c+4 r4 c+ r6^6 c+ c+4 r4',
     'f+ r6^6 f+ f+4 r4 f+ r6^6 f+ f+4 r4',
-    'l16 brrr brrr > crrr crrr < brrr l4 rrr l12',
+    'l8 br br > cr cr < br l4 rrr l12',
     
     // Reprise
     'e r6 e r6 e4^6 a',

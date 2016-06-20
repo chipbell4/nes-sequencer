@@ -28,12 +28,12 @@ KK.melody.PWM2 = (function() {
     '[g+ c d+]^', 
     '[g+ b f]^',
     '[f+ a+ c+ e]^',
-    'l16',
-    '[b d+ f+] rrr',
-    '[b d+ f+] rrr',
-    '[e g > c] rrr',
-    '[e g > c] rrr',
-    '[b d+ f+] rrr',
+    'l8',
+    '[b d+ f+]r',
+    '[b d+ f+]r',
+    '[e g > c]r',
+    '[e g > c]r',
+    '[b d+ f+]r',
     'l4 rrr',
     
     // Reprise
