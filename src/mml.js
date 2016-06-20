@@ -45,6 +45,8 @@ module.exports = {
       melody = melody.concat(Effects.Arpeggio(frequencies, chord[0].cycles, chord[0].volume))
     })
 
+    melody.push({ frequency: 440, volume: 0, cycles: 1 });
+
     return melody
   }
 }
