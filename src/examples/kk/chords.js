@@ -24,7 +24,7 @@ KK.melody.PWM2 = (function() {
     'rr[ e g+ b]r rr[e g+ b]r',
     
     // bridge chords
-    'l1',
+    'l1 v10',
     '[g+ c d+]^', 
     '[g+ b f]^',
     '[f+ a+ c+ e]^',
@@ -37,7 +37,7 @@ KK.melody.PWM2 = (function() {
     'l4 rrr',
     
     // Reprise
-    'l8',
+    'l8 v20',
     'rr[ e g+ b]r rr[e g+ b]r',
     'rr[ e a c+]r rr[e a c+]r',
     'rr[ d a f+]r rr[d a f+]r',
