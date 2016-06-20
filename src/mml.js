@@ -22,7 +22,7 @@ module.exports = {
       }
 
       // push the current note onto the end of the current chord grouping
-      chordGroupings[melody.length - 1].push({
+      chordGroupings[chordGroupings.length - 1].push({
         frequency: noteNumberToFrequency(current.value.noteNumber),
         volume: current.value.velocity / 127,
         cycles: Math.round(current.value.duration * 60)
