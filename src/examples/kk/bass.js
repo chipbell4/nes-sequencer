@@ -23,6 +23,14 @@ KK.melody.TRIANGLE = (function() {
     'r6 a r6 a a4 r4',
     'b r6 b r6 b4^6 e',
     'r6 e r6 e e4 r4',
+
+    // bridge
+    'l12',
+    'g+ r6^6 g+ g+4 r4 g+ r6^6 g+ g+4 r4',
+    'c+ r6^6 c+ c+4 r4 c+ r6^6 c+ c+4 r4',
+    'f+ r6^6 f+ f+4 r4 f+ r6^6 f+ f+4 r4',
+    'l16 brrr brrr > crrr crrr < brrr l4 rrrr',
+    
   ].join(' ');
 
   return NES.Mml.mmlToMelody(bassMml);
