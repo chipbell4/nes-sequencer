@@ -1,3 +1,7 @@
+/**
+ * Handles oscillators and their configuration
+ * @module NES.Oscillators
+ */
 module.exports = (function () {
   var context
   try {
@@ -103,8 +107,19 @@ module.exports = (function () {
 
   return {
 
+    /**
+     * Sets the pulse width of a particular oscillator
+     * @param {String} oscillatorIndex The oscillator to set for (PWM1, or PWM2)
+     * @param {Number} pulseWidth The new pulse width to set (0 - 1)
+     */
     setPulseWidth: setPulseWidth,
 
+    /**
+     * Set the pitch of a particular oscillator
+     * @param {String} oscillatorIndex The oscillator to set for (PWM1, PWM2, NOISE, TRIANGLE)
+     * @param {Number} frequency The frequency in Hz to set to
+     * @param {Number} volume The volume to set to (0 - 1)
+     */
     setPitch: function (oscillatorIndex, frequency, volume) {
       if (volume !== undefined) {
         volume = Math.max(0, Math.min(1, volume))
