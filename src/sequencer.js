@@ -26,12 +26,17 @@ var initializePitches = function (melodies) {
   })
 }
 
+/**
+ * Handles the sequencing of songs
+ * @module NES.Sequencer
+ */
 module.exports = {
   /**
    * Schedules a melody to be played. melodies, in this case is an object, where the keys are the oscillator type
    * (NesSequencer.OSCILLATOR_TYPES.PWM1), and the associated values is an array of objects, each looking like this:
    * { frequency: 440, volume: 0.2, cycles: 10 }, where frequency is in Hz, volume ranges between 0 and 1, and cycles
    * is the number of cpu cycles to use
+   * @param {Array} melodies The melody to play
    */
   play: function (melodies) {
     this.stop()
@@ -59,6 +64,9 @@ module.exports = {
     }, CYCLE_LENGTH_IN_MS)
   },
 
+  /**
+   * Stops all songs, and mutes them
+   */
   stop: function () {
     clearInterval(sequencerInterval)
 
