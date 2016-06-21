@@ -7,9 +7,9 @@ var noteNumberToFrequency = function (noteNumber) {
   return 440 * Math.pow(2, halftoneOffset / 12)
 }
 
-var cycles = function(duration) {
-  var alpha = 100000000;
-  return Math.round(Math.round(duration * 60 * alpha) / alpha);
+var cycles = function (duration) {
+  var alpha = 100000000
+  return Math.round(Math.round(duration * 60 * alpha) / alpha)
 }
 
 module.exports = {
@@ -22,29 +22,28 @@ module.exports = {
     var lastTime = current.value.time
 
     // handle the starting rest as well
-    if(lastTime > 0) {
+    if (lastTime > 0) {
       chordGroupings[chordGroupings.length - 1].push({
         frequency: 440,
         volume: 0,
-        cycles: cycles(lastTime),
-      });
-      chordGroupings.push([]);
+        cycles: cycles(lastTime)
+      })
+      chordGroupings.push([])
     }
 
-    var lastNoteEnd = current.value.duration + lastTime;
+    var lastNoteEnd = current.value.duration + lastTime
     while (current.value.type !== 'end') {
       // check if we need to add a rest. We'll need to add a rest if the current note ends before the next one starts
-      if(current.value.time > lastNoteEnd) {
-        var restLength = current.value.time - lastNoteEnd;
+      if (current.value.time > lastNoteEnd) {
+        var restLength = current.value.time - lastNoteEnd
         chordGroupings.push([{
           frequency: noteNumberToFrequency(current.value.noteNumber),
           volume: 0,
-          cycles: cycles(restLength),
-        }]);
-        chordGroupings.push([]);
-      }
-      // if our current note doesn't occur at the same time as the last one, create a new chord grouping
-      else if (current.value.time !== lastTime) {
+          cycles: cycles(restLength)
+        }])
+        chordGroupings.push([])
+      } else if (current.value.time !== lastTime) {
+        // if our current note doesn't occur at the same time as the last one, create a new chord grouping
         chordGroupings.push([])
       }
 
@@ -52,11 +51,11 @@ module.exports = {
       chordGroupings[chordGroupings.length - 1].push({
         frequency: noteNumberToFrequency(current.value.noteNumber),
         volume: current.value.velocity / 127,
-        cycles: cycles(current.value.duration),
+        cycles: cycles(current.value.duration)
       })
 
       lastTime = current.value.time
-      lastNoteEnd = current.value.duration + current.value.time;
+      lastNoteEnd = current.value.duration + current.value.time
 
       current = iterator.next()
     }
@@ -73,7 +72,7 @@ module.exports = {
       melody = melody.concat(Effects.Arpeggio(frequencies, chord[0].cycles, chord[0].volume))
     })
 
-    melody.push({ frequency: 440, volume: 0, cycles: 1 });
+    melody.push({ frequency: 440, volume: 0, cycles: 1 })
 
     return melody
   }
