@@ -1,5 +1,5 @@
 /**
- * Effects module
+ * Module for adding effects to existing melodies
  * @module NES.Effects
  * @see NES
  */
