@@ -46,3 +46,7 @@ var fullMelody = {};
 fullMelody[NesSequencer.OSCILLATOR_TYPES.PWM1] = notes;
 NES.Sequencer.play(fullMelody);
 ```
+
+There is also [MML](https://en.wikipedia.org/wiki/Music_Macro_Language) support which can make writing songs
+considerably easier. You can see [here in the Kart Kingdom example](https://github.com/chipbell4/nes-sequencer/blob/master/src/examples/kk/melody.js#L3)
+how you might go about that.
