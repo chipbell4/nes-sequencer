@@ -22,6 +22,7 @@
     "standard": "^7.0.1"
   },
   "dependencies": {
+    "jsdoc": "^3.4.0",
     "mml-iterator": "^1.0.0"
   }
 }
