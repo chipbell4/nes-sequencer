@@ -7,6 +7,29 @@ This is a attempt to emulate the NES audio hardware using the Web Audio API. The
 ## Getting the project setup, with examples
 After cloning the repo, simply run `make all` to concatenate files, and open the provided html file in a browser
 
+## Docs
+Also, `make docs` will also build the docs and dump them into a `docs` folder, which you can peek through if you need.
+
+## Building songs
+Building songs is fairly easy, by passing an object to `play`. The object will have keys for each oscillator,
+and arrays for each value. Here's an example
+```javascript
+var notes = [
+  { frequency: 440, cycles: 30, volume: 0.1 },
+  { frequency: 880, cycles: 60, volume: 0.1 },
+  { frequency: 440, cycles: 30, volume: 0.1 },
+];
+var fullMelody = {};
+fullMelody[NesSequencer.OSCILLATOR_TYPES.PWM1] = notes;
+NES.Sequencer.play(fullMelody);
+```
+Note that all time units are provided in *integer cycles*. The cycles correspond to the NES' APU processor speed, which
+was 60Hz.
+
+There is also [MML](https://en.wikipedia.org/wiki/Music_Macro_Language) support which can make writing songs
+considerably easier. You can see [here in the Kart Kingdom example](https://github.com/chipbell4/nes-sequencer/blob/master/src/examples/kk/melody.js#L3)
+how you might go about that.
+
 ## Building the oscillators
 The Web Audio API has built-in support for a triangle wave, but the others must be implemented.
 
@@ -32,23 +55,3 @@ You can change the pulse width as well
 ```javascript
 NES.Oscillator.setPulseWidth(NesSequencer.OSCILLATOR_TYPES.PWM1, 0.25);
 ```
-
-## Building songs
-Building songs is fairly easy, by passing an object to `play`. The object will have keys for each oscillator,
-and arrays for each value. Here's an example
-```javascript
-var notes = [
-  { frequency: 440, cycles: 30, volume: 0.1 },
-  { frequency: 880, cycles: 60, volume: 0.1 },
-  { frequency: 440, cycles: 30, volume: 0.1 },
-];
-var fullMelody = {};
-fullMelody[NesSequencer.OSCILLATOR_TYPES.PWM1] = notes;
-NES.Sequencer.play(fullMelody);
-```
-Note that all time units are provided in *integer cycles*. The cycles correspond to the NES' APU processor speed, which
-was 60Hz.
-
-There is also [MML](https://en.wikipedia.org/wiki/Music_Macro_Language) support which can make writing songs
-considerably easier. You can see [here in the Kart Kingdom example](https://github.com/chipbell4/nes-sequencer/blob/master/src/examples/kk/melody.js#L3)
-how you might go about that.
