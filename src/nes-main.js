@@ -1,4 +1,8 @@
 (function () {
+  /**
+   * The main wrapper module for NES, providing access to the submodules
+   * @module NES
+   */
   var NES = {
     Effects: require('./effects'),
     MusicTools: require('./music-tools'),
