@@ -38,14 +38,16 @@ Building songs is fairly easy, by passing an object to `play`. The object will h
 and arrays for each value. Here's an example
 ```javascript
 var notes = [
-  { frequency: 440, duration: 500, volume: 0.1 },
-  { frequency: 880, duration: 1000, volume: 0.1 },
-  { frequency: 440, duration: 500, volume: 0.1 },
+  { frequency: 440, cycles: 30, volume: 0.1 },
+  { frequency: 880, cycles: 60, volume: 0.1 },
+  { frequency: 440, cycles: 30, volume: 0.1 },
 ];
 var fullMelody = {};
 fullMelody[NesSequencer.OSCILLATOR_TYPES.PWM1] = notes;
 NES.Sequencer.play(fullMelody);
 ```
+Note that all time units are provided in *integer cycles*. The cycles correspond to the NES' APU processor speed, which
+was 60Hz.
 
 There is also [MML](https://en.wikipedia.org/wiki/Music_Macro_Language) support which can make writing songs
 considerably easier. You can see [here in the Kart Kingdom example](https://github.com/chipbell4/nes-sequencer/blob/master/src/examples/kk/melody.js#L3)
