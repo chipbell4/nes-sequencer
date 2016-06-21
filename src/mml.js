@@ -12,7 +12,17 @@ var cycles = function (duration) {
   return Math.round(Math.round(duration * 60 * alpha) / alpha)
 }
 
+/**
+ * A module for working with MML
+ * @module NES.Mml
+ * @see NES
+ */
 module.exports = {
+  /**
+   * Converts an mml string to an array of notes for the sequencer
+   * @param {String} mmlString A string of mml to convert. Something like "t100 cde2fg^"
+   * @return {Array} An array of notes that can be passed to the sequencer's play method
+   */
   mmlToMelody: function (mmlString) {
     var iterator = new MMLIterator(mmlString)
 
