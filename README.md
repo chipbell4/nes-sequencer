@@ -10,7 +10,7 @@ After cloning the repo, simply run `make all` to concatenate files, and open the
 ## Building the oscillators
 The Web Audio API has built-in support for a triangle wave, but the others must be implemented.
 
-For the pulse width oscillator, I was forced to create my own custom `[PeriodicWave](https://www.w3.org/TR/webaudio/#idl-def-PeriodicWave)`
+For the pulse width oscillator, I was forced to create my own custom [PeriodicWave](https://www.w3.org/TR/webaudio/#idl-def-PeriodicWave)
 instance after calculating the Fourier series by hand (which came out something similar to series
 [here](https://en.wikipedia.org/wiki/Pulse_wave)).
 
