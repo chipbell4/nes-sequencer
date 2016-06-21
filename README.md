@@ -22,19 +22,19 @@ to allow me to bandpass-filter frequencies to get "high" and "low" noise.
 ## Basic Pitch Setting etc.
 The easiest way to set a pitch is using `setPitch`:
 ```javascript
-NesSequencer.setPitch(NesSequencer.OSCILLATOR_TYPES.PWM1, 880, 0.1);
-NesSequencer.setPitch(NesSequencer.OSCILLATOR_TYPES.PWM2, 440, 0.1);
-NesSequencer.setPitch(NesSequencer.OSCILLATOR_TYPES.TRI, 220, 0.1);
-NesSequencer.setPitch(NesSequencer.OSCILLATOR_TYPES.NOISE, 100, 0.1);
+NES.Oscillator.setPitch(NesSequencer.OSCILLATOR_TYPES.PWM1, 880, 0.1);
+NES.Oscillator.setPitch(NesSequencer.OSCILLATOR_TYPES.PWM2, 440, 0.1);
+NES.Oscillator.setPitch(NesSequencer.OSCILLATOR_TYPES.TRI, 220, 0.1);
+NES.Oscillator.setPitch(NesSequencer.OSCILLATOR_TYPES.NOISE, 100, 0.1);
 ```
 
 You can change the pulse width as well
 ```javascript
-NesSequencer.setPulseWidth(NesSequencer.OSCILLATOR_TYPES.PWM1, 0.25);
+NES.Oscillator.setPulseWidth(NesSequencer.OSCILLATOR_TYPES.PWM1, 0.25);
 ```
 
 ## Building songs
-Building songs is fairly easy, by passing an object to `scheduleMelody`. The object will have keys for each oscillator,
+Building songs is fairly easy, by passing an object to `play`. The object will have keys for each oscillator,
 and arrays for each value. Here's an example
 ```javascript
 var notes = [
@@ -44,5 +44,5 @@ var notes = [
 ];
 var fullMelody = {};
 fullMelody[NesSequencer.OSCILLATOR_TYPES.PWM1] = notes;
-NesSequencer.scheduleMelody(fullMelody);
+NES.Sequencer.play(fullMelody);
 ```
