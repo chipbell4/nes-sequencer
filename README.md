@@ -5,7 +5,12 @@ This is a attempt to emulate the NES audio hardware using the Web Audio API. The
 * A noise channel
 
 ## Getting the project setup, with examples
-After cloning the repo, simply run `make all` to concatenate files, and open the provided html file in a browser
+After cloning the repo, simply run
+```
+npm install
+make all
+```
+to concatenate files, and open the provided html file in a browser
 
 ## Docs
 Also, `make docs` will also build the docs and dump them into a `docs` folder, which you can peek through if you need.
@@ -45,13 +50,13 @@ to allow me to bandpass-filter frequencies to get "high" and "low" noise.
 ## Basic Pitch Setting etc.
 The easiest way to set a pitch is using `setPitch`:
 ```javascript
-NES.Oscillator.setPitch(NesSequencer.OSCILLATOR_TYPES.PWM1, 880, 0.1);
-NES.Oscillator.setPitch(NesSequencer.OSCILLATOR_TYPES.PWM2, 440, 0.1);
-NES.Oscillator.setPitch(NesSequencer.OSCILLATOR_TYPES.TRI, 220, 0.1);
-NES.Oscillator.setPitch(NesSequencer.OSCILLATOR_TYPES.NOISE, 100, 0.1);
+NES.Oscillator.setPitch('PWM1', 880, 0.1);
+NES.Oscillator.setPitch('PWM2', 440, 0.1);
+NES.Oscillator.setPitch('TRI' 220, 0.1);
+NES.Oscillator.setPitch('NOISE', 100, 0.1);
 ```
 
 You can change the pulse width as well
 ```javascript
-NES.Oscillator.setPulseWidth(NesSequencer.OSCILLATOR_TYPES.PWM1, 0.25);
+NES.Oscillator.setPulseWidth('PWM1', 0.25);
 ```
