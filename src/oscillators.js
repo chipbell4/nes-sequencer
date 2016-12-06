@@ -131,7 +131,7 @@ module.exports = (function () {
         return
       }
 
-      oscillators[oscillatorIndex].oscillator.frequency.setValueAtTime(frequency, 0)
+      oscillators[oscillatorIndex].oscillator.frequency.setValueAtTime(frequency, context.currentTime)
     }
   }
 })()
