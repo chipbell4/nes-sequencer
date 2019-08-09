@@ -106,6 +106,10 @@ module.exports = (function () {
   })
 
   return {
+    /**
+     * The AudioContext used for the oscillators. Providing access if it needs to be paused/resumed.
+     */
+    context: context,
 
     /**
      * Sets the pulse width of a particular oscillator
