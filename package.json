@@ -2,7 +2,7 @@
   "name": "nes-sequencer",
   "version": "1.0.0",
   "description": "This is a attempt to emulate the NES audio hardware using the Web Audio API.",
-  "main": "nes-sequencer.js",
+  "main": "nes.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
