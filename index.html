@@ -27,6 +27,7 @@ var A = function(id, song) {
 A('megaman', 'Megaman2');
 A('kk', 'KK');
 document.getElementById('stop').addEventListener('click', NES.Sequencer.stop.bind(NES.Sequencer));
+document.addEventListener('click', () => NES.Oscillators.context.resume());
         </script>
     </body>
 </html>
