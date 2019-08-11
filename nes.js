@@ -1012,11 +1012,17 @@ module.exports = (function () {
   var createNoiseOscillator = function () {
     // https://medium.com/web-audio/you-dont-need-that-scriptprocessor-61a836e28b42
     var node = context.createBufferSource()
+
     var buffer = context.createBuffer(1, context.sampleRate, context.sampleRate)
     var data = buffer.getChannelData(0)
 
-    for (var i = 0; i < context.sampleRate; i++) {
-      data[i] = Math.random()
+    var runLength = 10
+    for (var i = 0; i < context.sampleRate * 4; i += runLength) {
+      var x = Math.random() < 0.5 ? 0 : 1
+
+      for (var j = 0; j < runLength; j++) {
+        data[i + j] = x
+      }
     }
 
     node.buffer = buffer
@@ -1025,18 +1031,11 @@ module.exports = (function () {
     var gain = context.createGain()
     gain.gain.value = 0
     node.connect(gain)
-
-    var bandpass = context.createBiquadFilter()
-    bandpass.frequency.value = 440
-    bandpass.type = 'bandpass'
-    bandpass.Q = 500
-    gain.connect(bandpass)
-    bandpass.connect(context.destination)
+    gain.connect(context.destination)
 
     return {
       oscillator: node,
-      gain: gain,
-      bandpass: bandpass
+      gain: gain
     }
   }
 
@@ -1093,7 +1092,23 @@ module.exports = (function () {
       }
 
       if (oscillatorIndex === 'NOISE') {
-        oscillators[oscillatorIndex].bandpass.frequency.value = frequency
+        // calculate the number of half steps above middle C
+        var halfSteps = Math.log(frequency / 261) / Math.log(2) * 12
+
+        console.log(frequency, halfSteps)
+
+        // clamp the value to a 0 - 16 range
+        halfSteps = Math.max(Math.min(halfSteps, 15), 0)
+
+        // round down
+        halfSteps = Math.floor(halfSteps)
+
+        // map that to a sample rate
+        var minSampleRate = 0.1
+        var maxSampleRate = 5
+        var sampleRate = minSampleRate + (maxSampleRate - minSampleRate) * (halfSteps / 15)
+
+        oscillators[oscillatorIndex].oscillator.playbackRate.value = sampleRate
         return
       }
 
