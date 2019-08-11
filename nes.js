@@ -1095,8 +1095,6 @@ module.exports = (function () {
         // calculate the number of half steps above middle C
         var halfSteps = Math.log(frequency / 261) / Math.log(2) * 12
 
-        console.log(frequency, halfSteps)
-
         // clamp the value to a 0 - 16 range
         halfSteps = Math.max(Math.min(halfSteps, 15), 0)
 
