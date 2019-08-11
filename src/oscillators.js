@@ -54,7 +54,7 @@ module.exports = (function () {
     var buffer = context.createBuffer(1, context.sampleRate, context.sampleRate)
     var data = buffer.getChannelData(0)
 
-    var runLength = 1;
+    var runLength = 10;
     for (var i = 0; i < context.sampleRate * 4; i += runLength) {
       var x = Math.random() < 0.5 ? 0 : 1
       
@@ -138,8 +138,13 @@ module.exports = (function () {
         // clamp the value to a 0 - 16 range
         halfSteps = Math.max(Math.min(halfSteps, 15), 0)
 
+        // round down
+        halfSteps = Math.floor(halfSteps);
+
         // map that to a sample rate
-        var sampleRate = 0.1 + (10 - 0.1) * (halfSteps / 15);
+        var minSampleRate = 0.1;
+        var maxSampleRate = 5;
+        var sampleRate = minSampleRate + (maxSampleRate - minSampleRate) * (halfSteps / 15);
         
         oscillators[oscillatorIndex].oscillator.playbackRate.value = sampleRate;
         return
