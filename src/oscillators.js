@@ -4,9 +4,12 @@
  */
 module.exports = (function () {
   var context
+  var globalGain
   try {
     var AudioContext = window.AudioContext || window.webkitAudioContext
     context = new AudioContext()
+    globalGain = context.createGain()
+    globalGain.connect(context.destination)
   } catch (e) {
     var message = 'Web Audio isn\'t supported in this browser!'
     throw new Error(message)
@@ -39,7 +42,7 @@ module.exports = (function () {
 
     oscillator.connect(gain)
     gain.connect(oscillatorGain)
-    oscillatorGain.connect(context.destination)
+    oscillatorGain.connect(globalGain)
 
     return {
       oscillator: oscillator,
@@ -69,7 +72,7 @@ module.exports = (function () {
     var gain = context.createGain()
     gain.gain.value = 0
     node.connect(gain)
-    gain.connect(context.destination)
+    gain.connect(globalGain)
 
     return {
       oscillator: node,
@@ -109,6 +112,11 @@ module.exports = (function () {
      * The AudioContext used for the oscillators. Providing access if it needs to be paused/resumed.
      */
     context: context,
+
+    /**
+     * The global gain node for the sequencer
+     */
+    gain: globalGain,
 
     /**
      * Sets the pulse width of a particular oscillator
