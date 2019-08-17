@@ -16,7 +16,9 @@
 var playerFor = function(songName) {
     return function() {
         NES.Sequencer.stop();
-        NES.Sequencer.play(window[songName].melody);
+        NES.Oscillators.context.resume().then(() => {
+            NES.Sequencer.play(window[songName].melody);
+        });
     };
 };
 
@@ -40,7 +42,6 @@ A('megaman', 'Megaman2');
 A('kk', 'KK');
 A('noise', 'Noise');
 document.getElementById('stop').addEventListener('click', NES.Sequencer.stop.bind(NES.Sequencer));
-document.addEventListener('click', () => NES.Oscillators.context.resume());
         </script>
     </body>
 </html>
