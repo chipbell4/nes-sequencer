@@ -10,7 +10,6 @@
     <body>
         <button id="megaman">Megaman</button></br>
         <button id="kk">Kart Kingdom</button>
-        <button id="noise">Noise Sweep</button>
         <button id="stop">Stop</button>
 <script>
 var playerFor = function(songName) {
@@ -27,20 +26,8 @@ var A = function(id, song) {
     document.getElementById(id).addEventListener('click', playSong);
 };
 
-window.Noise = {
-    melody: {
-        NOISE: NES.Mml.mmlToMelody(`
-          t120
-          l8
-          
-          c c+ d d+ e f f+ g g+ a a+ b
-        `)
-    }
-};
-
 A('megaman', 'Megaman2');
 A('kk', 'KK');
-A('noise', 'Noise');
 document.getElementById('stop').addEventListener('click', () => NES.Sequencer.stop());
         </script>
     </body>
