@@ -898,6 +898,19 @@ module.exports = {
  */
 module.exports = {
   /**
+   * A set of tempos with subdivisions (down a 32nd note) that line up evenly on the NES's cycle speed
+   */
+  tempos: {
+    Grave: 37.5,
+    Largo: 50,
+    Adagio: 75,
+    Andante: 90,
+    Moderato: 112.5,
+    Allegro: 150,
+    Presto: 225
+  },
+
+  /**
    * Calculates the frequency for a given note in scientific pitch notation
    * @param {String} note A string to convert (like "A5", "Db3" or "G#4")
    * @return {Number} The frequency of the note
@@ -966,9 +979,12 @@ module.exports = {
  */
 module.exports = (function () {
   var context
+  var globalGain
   try {
     var AudioContext = window.AudioContext || window.webkitAudioContext
     context = new AudioContext()
+    globalGain = context.createGain()
+    globalGain.connect(context.destination)
   } catch (e) {
     var message = 'Web Audio isn\'t supported in this browser!'
     throw new Error(message)
@@ -996,12 +1012,12 @@ module.exports = (function () {
     gain.gain.value = 0
 
     // Some wave forms are simply louder, so we add a global gain option for basic mixing
-    var globalGain = context.createGain()
-    globalGain.gain.value = options.global_gain || 1
+    var oscillatorGain = context.createGain()
+    oscillatorGain.gain.value = options.oscillator_gain || 1
 
     oscillator.connect(gain)
-    gain.connect(globalGain)
-    globalGain.connect(context.destination)
+    gain.connect(oscillatorGain)
+    oscillatorGain.connect(globalGain)
 
     return {
       oscillator: oscillator,
@@ -1031,7 +1047,7 @@ module.exports = (function () {
     var gain = context.createGain()
     gain.gain.value = 0
     node.connect(gain)
-    gain.connect(context.destination)
+    gain.connect(globalGain)
 
     return {
       oscillator: node,
@@ -1055,9 +1071,9 @@ module.exports = (function () {
   }
 
   // initialize oscillators
-  oscillators.PWM1 = createOscillator({ global_gain: 0.25 })
+  oscillators.PWM1 = createOscillator({ oscillator_gain: 0.25 })
   setPulseWidth('PWM1', 0.5)
-  oscillators.PWM2 = createOscillator({ global_gain: 0.25 })
+  oscillators.PWM2 = createOscillator({ oscillator_gain: 0.25 })
   setPulseWidth('PWM2', 0.5)
   oscillators.TRIANGLE = createOscillator({ type: 'triangle' })
   oscillators.NOISE = createNoiseOscillator()
@@ -1071,6 +1087,11 @@ module.exports = (function () {
      * The AudioContext used for the oscillators. Providing access if it needs to be paused/resumed.
      */
     context: context,
+
+    /**
+     * The global gain node for the sequencer
+     */
+    gain: globalGain,
 
     /**
      * Sets the pulse width of a particular oscillator
