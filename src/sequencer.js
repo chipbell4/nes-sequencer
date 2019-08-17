@@ -37,8 +37,11 @@ module.exports = {
    * { frequency: 440, volume: 0.2, cycles: 10 }, where frequency is in Hz, volume ranges between 0 and 1, and cycles
    * is the number of cpu cycles to use
    * @param {Array} melodies The melody to play
+   * @param {Boolean} loop Whether or not to loop the song. Defaults to false
    */
-  play: function (melodies) {
+  play: function (melodies, loop) {
+    loop = loop || false
+
     this.stop()
 
     initializePitches(melodies)
@@ -46,6 +49,13 @@ module.exports = {
     // calculate the cycle length and start cycle for each melody note
     Object.keys(melodies).forEach(function (key) {
       melodies[key] = calculateStartCyclesForMelody(melodies[key])
+    })
+
+    // calculate the last cycle for song, so we can loop if necessary
+    var lastCycle = 0
+    Object.keys(melodies).forEach(function (key) {
+      var localLastCycle = Math.max.apply(Math, melodies[key].map(note => note.start_cycle + note.cycles))
+      lastCycle = Math.max(localLastCycle, lastCycle)
     })
 
     var currentCycle = 0
@@ -60,7 +70,12 @@ module.exports = {
             Oscillators.setPitch(oscillatorType, note.frequency, note.volume)
           })
       })
+
       currentCycle += 1
+
+      if (loop && currentCycle >= lastCycle) {
+        currentCycle = 0
+      }
     }, CYCLE_LENGTH_IN_MS)
   },
 

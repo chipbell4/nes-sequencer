@@ -16,7 +16,7 @@ var playerFor = function(songName) {
     return function() {
         NES.Sequencer.stop();
         NES.Oscillators.context.resume().then(() => {
-            NES.Sequencer.play(window[songName].melody);
+            NES.Sequencer.play(window[songName].melody, true);
         });
     };
 };
