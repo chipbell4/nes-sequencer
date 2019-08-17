@@ -34,12 +34,12 @@ module.exports = (function () {
     gain.gain.value = 0
 
     // Some wave forms are simply louder, so we add a global gain option for basic mixing
-    var globalGain = context.createGain()
-    globalGain.gain.value = options.global_gain || 1
+    var oscillatorGain = context.createGain()
+    oscillatorGain.gain.value = options.oscillator_gain || 1
 
     oscillator.connect(gain)
-    gain.connect(globalGain)
-    globalGain.connect(context.destination)
+    gain.connect(oscillatorGain)
+    oscillatorGain.connect(context.destination)
 
     return {
       oscillator: oscillator,
@@ -93,9 +93,9 @@ module.exports = (function () {
   }
 
   // initialize oscillators
-  oscillators.PWM1 = createOscillator({ global_gain: 0.25 })
+  oscillators.PWM1 = createOscillator({ oscillator_gain: 0.25 })
   setPulseWidth('PWM1', 0.5)
-  oscillators.PWM2 = createOscillator({ global_gain: 0.25 })
+  oscillators.PWM2 = createOscillator({ oscillator_gain: 0.25 })
   setPulseWidth('PWM2', 0.5)
   oscillators.TRIANGLE = createOscillator({ type: 'triangle' })
   oscillators.NOISE = createNoiseOscillator()
