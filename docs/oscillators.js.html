@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: oscillators.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: oscillators.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Handles oscillators and their configuration
+ * @module NES.Oscillators
+ */
+module.exports = (function () {
+  var context
+  var globalGain
+  try {
+    var AudioContext = window.AudioContext || window.webkitAudioContext
+    context = new AudioContext()
+    globalGain = context.createGain()
+    globalGain.connect(context.destination)
+  } catch (e) {
+    var message = 'Web Audio isn\'t supported in this browser!'
+    throw new Error(message)
+  }
+
+  var oscillators = {}
+
+  var createOscillator = function (options) {
+    options = options || {}
+
+    var oscillator = context.createOscillator()
+
+    if (options.frequency) oscillator.frequency.value = options.frequency
+    if (options.type) oscillator.type = options.type
+
+    if (options.harmonics) {
+      var waveform = context.createPeriodicWave(
+        new Float32Array(options.harmonics.real),
+        new Float32Array(options.harmonics.imag)
+      )
+      oscillator.setPeriodicWave(waveform)
+    }
+
+    var gain = context.createGain()
+    gain.gain.value = 0
+
+    // Some wave forms are simply louder, so we add a global gain option for basic mixing
+    var oscillatorGain = context.createGain()
+    oscillatorGain.gain.value = options.oscillator_gain || 1
+
+    oscillator.connect(gain)
+    gain.connect(oscillatorGain)
+    oscillatorGain.connect(globalGain)
+
+    return {
+      oscillator: oscillator,
+      gain: gain
+    }
+  }
+
+  var createNoiseOscillator = function () {
+    // https://medium.com/web-audio/you-dont-need-that-scriptprocessor-61a836e28b42
+    var node = context.createBufferSource()
+
+    var buffer = context.createBuffer(1, context.sampleRate, context.sampleRate)
+    var data = buffer.getChannelData(0)
+
+    var runLength = 10
+    for (var i = 0; i &lt; context.sampleRate * 4; i += runLength) {
+      var x = Math.random() &lt; 0.5 ? 0 : 1
+
+      for (var j = 0; j &lt; runLength; j++) {
+        data[i + j] = x
+      }
+    }
+
+    node.buffer = buffer
+    node.loop = true
+
+    var gain = context.createGain()
+    gain.gain.value = 0
+    node.connect(gain)
+    gain.connect(globalGain)
+
+    return {
+      oscillator: node,
+      gain: gain
+    }
+  }
+
+  var setPulseWidth = function (oscillatorIndex, pulseWidth) {
+    // calculate the harmonics for the passed (clamped) pulse width
+    pulseWidth = Math.max(0, Math.min(1, pulseWidth))
+
+    var real = [0]
+    var imag = [0]
+    for (var i = 1; i &lt; 8192; i++) {
+      var realTerm = 4 / (i * Math.PI) * Math.sin(Math.PI * i * pulseWidth)
+      real.push(realTerm)
+      imag.push(0)
+    }
+    oscillators[oscillatorIndex].oscillator.setPeriodicWave(
+      context.createPeriodicWave(new Float32Array(real), new Float32Array(imag)))
+  }
+
+  // initialize oscillators
+  oscillators.PWM1 = createOscillator({ oscillator_gain: 0.25 })
+  setPulseWidth('PWM1', 0.5)
+  oscillators.PWM2 = createOscillator({ oscillator_gain: 0.25 })
+  setPulseWidth('PWM2', 0.5)
+  oscillators.TRIANGLE = createOscillator({ type: 'triangle' })
+  oscillators.NOISE = createNoiseOscillator()
+
+  Object.keys(oscillators).forEach(function (key) {
+    oscillators[key].oscillator.start(0)
+  })
+
+  return {
+    /**
+     * The AudioContext used for the oscillators. Providing access if it needs to be paused/resumed.
+     */
+    context: context,
+
+    /**
+     * The global gain node for the sequencer
+     */
+    gain: globalGain,
+
+    /**
+     * Sets the pulse width of a particular oscillator
+     * @param {String} oscillatorIndex The oscillator to set for (PWM1, or PWM2)
+     * @param {Number} pulseWidth The new pulse width to set (0 - 1)
+     */
+    setPulseWidth: setPulseWidth,
+
+    /**
+     * Set the pitch of a particular oscillator
+     * @param {String} oscillatorIndex The oscillator to set for (PWM1, PWM2, NOISE, TRIANGLE)
+     * @param {Number} frequency The frequency in Hz to set to
+     * @param {Number} volume The volume to set to (0 - 1)
+     */
+    setPitch: function (oscillatorIndex, frequency, volume) {
+      if (volume !== undefined) {
+        volume = Math.max(0, Math.min(1, volume))
+        oscillators[oscillatorIndex].gain.gain.value = volume
+      }
+
+      if (oscillatorIndex === 'NOISE') {
+        // calculate the number of half steps above middle C
+        var halfSteps = Math.log(frequency / 261) / Math.log(2) * 12
+
+        // clamp the value to a 0 - 16 range
+        halfSteps = Math.max(Math.min(halfSteps, 15), 0)
+
+        // round down
+        halfSteps = Math.floor(halfSteps)
+
+        // map that to a sample rate
+        var minSampleRate = 0.1
+        var maxSampleRate = 5
+        var sampleRate = minSampleRate + (maxSampleRate - minSampleRate) * (halfSteps / 15)
+
+        oscillators[oscillatorIndex].oscillator.playbackRate.value = sampleRate
+        return
+      }
+
+      oscillators[oscillatorIndex].oscillator.frequency.setValueAtTime(frequency, context.currentTime)
+    }
+  }
+})()
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-NES.html">NES</a></li><li><a href="NES.module_Effects.html">Effects</a></li><li><a href="NES.module_Mml.html">Mml</a></li><li><a href="NES.module_MusicTools.html">MusicTools</a></li><li><a href="NES.module_Oscillators.html">Oscillators</a></li><li><a href="NES.module_Sequencer.html">Sequencer</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Aug 17 2019 01:55:23 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
