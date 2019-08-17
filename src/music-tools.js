@@ -8,7 +8,7 @@ module.exports = {
    * A set of tempos with subdivisions (down a 32nd note) that line up evenly on the NES's cycle speed
    */
   tempos: {
-    Grave: 37,
+    Grave: 37.5,
     Largo: 50,
     Adagio: 75,
     Andante: 90,
