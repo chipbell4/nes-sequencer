@@ -5,6 +5,19 @@
  */
 module.exports = {
   /**
+   * A set of tempos with subdivisions (down a 32nd note) that line up evenly on the NES's cycle speed
+   */
+  tempos: {
+    Grave: 37,
+    Largo: 50,
+    Adagio: 75,
+    Andante: 90,
+    Moderato: 112.5,
+    Allegro: 150,
+    Presto: 225
+  },
+
+  /**
    * Calculates the frequency for a given note in scientific pitch notation
    * @param {String} note A string to convert (like "A5", "Db3" or "G#4")
    * @return {Number} The frequency of the note
