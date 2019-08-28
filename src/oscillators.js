@@ -86,7 +86,7 @@ module.exports = (function () {
 
     var real = [0]
     var imag = [0]
-    for (var i = 1; i < 8192; i++) {
+    for (var i = 1; i < 2048; i++) {
       var realTerm = 4 / (i * Math.PI) * Math.sin(Math.PI * i * pulseWidth)
       real.push(realTerm)
       imag.push(0)

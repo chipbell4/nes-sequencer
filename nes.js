@@ -1061,7 +1061,7 @@ module.exports = (function () {
 
     var real = [0]
     var imag = [0]
-    for (var i = 1; i < 8192; i++) {
+    for (var i = 1; i < 2048; i++) {
       var realTerm = 4 / (i * Math.PI) * Math.sin(Math.PI * i * pulseWidth)
       real.push(realTerm)
       imag.push(0)
@@ -1179,7 +1179,7 @@ module.exports = {
    * @param {Boolean} loop Whether or not to loop the song. Defaults to false
    */
   play: function (melodies, loop) {
-    loop = loop || false;
+    loop = loop || false
 
     this.stop()
 
@@ -1191,11 +1191,11 @@ module.exports = {
     })
 
     // calculate the last cycle for song, so we can loop if necessary
-    var lastCycle = 0;
+    var lastCycle = 0
     Object.keys(melodies).forEach(function (key) {
-      var localLastCycle = Math.max.apply(Math, melodies[key].map(note => note.start_cycle + note.cycles));
-      lastCycle = Math.max(localLastCycle, lastCycle);
-    });
+      var localLastCycle = Math.max.apply(Math, melodies[key].map(note => note.start_cycle + note.cycles))
+      lastCycle = Math.max(localLastCycle, lastCycle)
+    })
 
     var currentCycle = 0
     sequencerInterval = setInterval(function () {
@@ -1213,7 +1213,7 @@ module.exports = {
       currentCycle += 1
 
       if (loop && currentCycle >= lastCycle) {
-        currentCycle = 0;
+        currentCycle = 0
       }
     }, CYCLE_LENGTH_IN_MS)
   },
