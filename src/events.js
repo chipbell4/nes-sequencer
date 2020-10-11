@@ -2,34 +2,34 @@ var bus = {
   listeners: {},
 
   trigger: function(name, data) {
-    if (listeners[name] === undefined) {
+    if (this.listeners[name] === undefined) {
       return;
     }
 
-    for (var i = 0; i < listeners[name].length; i++) {
-      listeners[name][i](data);
+    for (var i = 0; i < this.listeners[name].length; i++) {
+      this.listeners[name][i](data);
     }
   },
 
   addEventListener: function(name, callback) {
-    if (listeners[name] === undefined) {
-      listeners[name] = [];
+    if (this.listeners[name] === undefined) {
+      this.listeners[name] = [];
     }
 
-    listeners[name].push(callback);
+    this.listeners[name].push(callback);
   },
 
   removeEventListener: function(name, callback) {
-    if (listeners[name] === undefined) {
+    if (this.listeners[name] === undefined) {
       return;
     }
 
-    var index = listeners[name].indexOf(callback);
+    var index = this.listeners[name].indexOf(callback);
     if (index === -1) {
       return index;
     }
 
-    listeners[name].splice(index, 1);
+    this.listeners[name].splice(index, 1);
     return index;
   }
 };
