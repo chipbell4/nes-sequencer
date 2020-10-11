@@ -800,6 +800,54 @@ module.exports = {
 }
 
 },{}],8:[function(require,module,exports){
+var bus = {
+  listeners: {},
+
+  trigger: function(name, data) {
+    if (this.listeners[name] === undefined) {
+      return;
+    }
+
+    for (var i = 0; i < this.listeners[name].length; i++) {
+      this.listeners[name][i](data);
+    }
+  },
+
+  addEventListener: function(name, callback) {
+    if (this.listeners[name] === undefined) {
+      this.listeners[name] = [];
+    }
+
+    this.listeners[name].push(callback);
+  },
+
+  removeEventListener: function(name, callback) {
+    if (this.listeners[name] === undefined) {
+      return;
+    }
+
+    var index = this.listeners[name].indexOf(callback);
+    if (index === -1) {
+      return index;
+    }
+
+    this.listeners[name].splice(index, 1);
+    return index;
+  }
+};
+
+var types = {
+  OSCILLATOR_CHANGE: 'OSCILLATOR_CHANGE',
+  SEQUENCER_CHANGE: 'SEQUENCER_CHANGE',
+  SEQUENCER_TICK: 'SEQUENCER_TICK',
+};
+
+module.exports = {
+  Bus: bus,
+  Types: types,
+};
+
+},{}],9:[function(require,module,exports){
 var MMLIterator = require('mml-iterator')
 var Effects = require('./effects')
 
@@ -890,7 +938,7 @@ module.exports = {
   }
 }
 
-},{"./effects":7,"mml-iterator":6}],9:[function(require,module,exports){
+},{"./effects":7,"mml-iterator":6}],10:[function(require,module,exports){
 /**
  * A few helpful functions for music-based calculations
  * @module NES.MusicTools
@@ -950,7 +998,7 @@ module.exports = {
   }
 }
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 (function () {
   /**
    * The main wrapper module for NES, providing access to the submodules
@@ -958,6 +1006,7 @@ module.exports = {
    */
   var NES = {
     Effects: require('./effects'),
+    Events: require('./events'),
     MusicTools: require('./music-tools'),
     Oscillators: require('./oscillators'),
     Sequencer: require('./sequencer'),
@@ -972,7 +1021,9 @@ module.exports = {
   }
 })()
 
-},{"./effects":7,"./mml":8,"./music-tools":9,"./oscillators":11,"./sequencer":12}],11:[function(require,module,exports){
+},{"./effects":7,"./events":8,"./mml":9,"./music-tools":10,"./oscillators":12,"./sequencer":13}],12:[function(require,module,exports){
+var { Bus, Types } = require('./events');
+
 /**
  * Handles oscillators and their configuration
  * @module NES.Oscillators
@@ -1112,6 +1163,8 @@ module.exports = (function () {
         oscillators[oscillatorIndex].gain.gain.value = volume
       }
 
+      Bus.trigger(Types.OSCILLATOR_CHANGE, { oscillatorIndex, frequency, volume });
+
       if (oscillatorIndex === 'NOISE') {
         // calculate the number of half steps above middle C
         var halfSteps = Math.log(frequency / 261) / Math.log(2) * 12
@@ -1136,7 +1189,8 @@ module.exports = (function () {
   }
 })()
 
-},{}],12:[function(require,module,exports){
+},{"./events":8}],13:[function(require,module,exports){
+var { Bus, Types } = require('./events')
 var Oscillators = require('./oscillators')
 
 var CYCLE_LENGTH_IN_MS = 1000 / 60
@@ -1199,6 +1253,7 @@ module.exports = {
 
     var currentCycle = 0
     sequencerInterval = setInterval(function () {
+      Bus.trigger(Types.SEQUENCER_TICK, { currentCycle });
       Object.keys(melodies).forEach(function (oscillatorType) {
         // find the note that should be playing (based on current cycle), and play it
         melodies[oscillatorType]
@@ -1234,4 +1289,4 @@ module.exports = {
   CYCLE_LENGTH_IN_MS: CYCLE_LENGTH_IN_MS
 }
 
-},{"./oscillators":11}]},{},[10]);
+},{"./events":8,"./oscillators":12}]},{},[11]);
