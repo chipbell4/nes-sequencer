@@ -1,5 +1,16 @@
 var bus = {
   listeners: {},
+
+  trigger: function(name, data) {
+    if (listeners[name] === undefined) {
+      return;
+    }
+
+    for (var i = 0; i < listeners[name].length; i++) {
+      listeners[name][i](data);
+    }
+  },
+
   addEventListener: function(name, callback) {
     if (listeners[name] === undefined) {
       listeners[name] = [];
