@@ -5,6 +5,7 @@
    */
   var NES = {
     Effects: require('./effects'),
+    Events: require('./events'),
     MusicTools: require('./music-tools'),
     Oscillators: require('./oscillators'),
     Sequencer: require('./sequencer'),
