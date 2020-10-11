@@ -1,3 +1,5 @@
+const { Bus, Types } = require('./events');
+
 /**
  * Handles oscillators and their configuration
  * @module NES.Oscillators
@@ -136,6 +138,8 @@ module.exports = (function () {
         volume = Math.max(0, Math.min(1, volume))
         oscillators[oscillatorIndex].gain.gain.value = volume
       }
+
+      Bus.trigger(Types.OSCILLATOR_CHANGE, { oscillatorIndex, frequency, volume });
 
       if (oscillatorIndex === 'NOISE') {
         // calculate the number of half steps above middle C
