@@ -60,3 +60,16 @@ You can change the pulse width as well
 ```javascript
 NES.Oscillator.setPulseWidth('PWM1', 0.25);
 ```
+
+## Listening for events
+The sequencer also emits a handful of events you can use to react to internal changes
+
+```javascript
+NES.Events.Bus.addEventListener(NES.Events.Types.OSCILLATOR_CHANGE, function(e) {
+  console.log(e.oscillatorIndex, e.frequency, e.volume);
+});
+
+NES.Events.Bus.addEventListener(NES.Events.Types.SEQUENCER_TICK, function(e) {
+  console.log('The sequencer ticked (this happens A LOT)', e.currentCycle);
+});
+```
