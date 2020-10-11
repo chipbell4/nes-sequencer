@@ -37,6 +37,7 @@ var bus = {
 var types = {
   OSCILLATOR_CHANGE: 'OSCILLATOR_CHANGE',
   SEQUENCER_CHANGE: 'SEQUENCER_CHANGE',
+  SEQUENCER_TICK: 'SEQUENCER_TICK',
 };
 
 module.exports = {

@@ -1,3 +1,4 @@
+var { Bus, Types } = require('./events')
 var Oscillators = require('./oscillators')
 
 var CYCLE_LENGTH_IN_MS = 1000 / 60
@@ -60,6 +61,7 @@ module.exports = {
 
     var currentCycle = 0
     sequencerInterval = setInterval(function () {
+      Bus.trigger(Types.SEQUENCER_TICK, { currentCycle });
       Object.keys(melodies).forEach(function (oscillatorType) {
         // find the note that should be playing (based on current cycle), and play it
         melodies[oscillatorType]
