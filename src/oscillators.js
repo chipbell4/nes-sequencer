@@ -1,4 +1,4 @@
-const { Bus, Types } = require('./events');
+var { Bus, Types } = require('./events');
 
 /**
  * Handles oscillators and their configuration
