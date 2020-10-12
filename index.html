@@ -3,9 +3,6 @@
     <head>
         <link rel="stylesheet" type="text/css" href="style.css" />
         <script src="nes.js"></script>
-        <script src="megaman2.js"></script>
-        <script src="arp.js"></script>
-        <script src="mixing-test.js"></script>
         <script src="kk.js"></script>
     </head>
     <body>
@@ -31,27 +28,29 @@
             <span id="controls-container">
                 <button id="stop">Stop</button>
             </span>
-            <button id="megaman">Megaman</button>
-            <button id="kk">Kart Kingdom</button>
+            <button data-song-id="KK">Kart Kingdom</button>
         </footer>
 
 <script>
-var playerFor = function(songName) {
-    return function() {
+const buttons = document.querySelectorAll('footer button[data-song-id]');
+for (const button of buttons) {
+    button.addEventListener('click', () => {
+        const songId = button.dataset.songId;
+
+        // build the data for the sequencer
+        const sequencerData = {};
+        for (const channel of ['PWM1', 'PWM2', 'TRIANGLE', 'NOISE']) {
+            sequencerData[channel] = NES.Mml.mmlToMelody(window[songId][channel]);
+        }
+
+        // play it in the sequencer
         NES.Sequencer.stop();
         NES.Oscillators.context.resume().then(() => {
-            NES.Sequencer.play(window[songName].melody, true);
+            NES.Sequencer.play(sequencerData, true);
         });
-    };
-};
+    });
+}
 
-var A = function(id, song) {
-    var playSong = playerFor(song);
-    document.getElementById(id).addEventListener('click', playSong);
-};
-
-A('megaman', 'Megaman2');
-A('kk', 'KK');
 document.getElementById('stop').addEventListener('click', () => NES.Sequencer.stop());
         </script>
     </body>

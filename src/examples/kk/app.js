@@ -1,15 +1,7 @@
-var KK = (function() {
-  var tempo = 194;
-  var SIXTH = Math.round(1/ 6 * 3600 / tempo);
-
-  return {
-    tempo: 200,
-    // Some constants for common durations
-    S: SIXTH,
-    T: SIXTH * 2,
-    D: SIXTH * 4,
-    Q: SIXTH * 6,
-    H: SIXTH * 12,
-    melody: { }
-  };
-})();
+window.KK = {
+  tempo: 200,
+  TRIANGLE: require('./bass.js'),
+  PWM1: require('./melody.js'),
+  PWM2: require('./chords.js'),
+  NOISE: require('./drums.js'),
+};

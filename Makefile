@@ -18,7 +18,7 @@ mixing-test.js: src/examples/mixing-test/app.js
 	cat src/examples/mixing-test/app.js > mixing-test.js
 
 kk.js: src/examples/kk/*.js
-	cat src/examples/kk/*.js > kk.js
+	node_modules/.bin/browserify src/examples/kk/app.js > kk.js
 
 lint: src/*.js
 	node_modules/.bin/standard --fix src/*.js
