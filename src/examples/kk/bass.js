@@ -41,4 +41,4 @@ module.exports = [
   'c r6 c r6 d4^6 e',
   'l4 rrrr l12',
   'c r6 c r6 d4^6 e2',
-  ].join(' ');
+  ].join('\n');

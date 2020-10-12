@@ -49,4 +49,4 @@ module.exports = [
   '[ceg] r6 [ceg] r6 [df+a]4^6 [eg+b]',
   'l4 rrrr l12',
   '[ceg] r6 [ceg] r6 [df+a]4^6 [eg+b]2',
-  ].join(' ');
+  ].join('\n');
