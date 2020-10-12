@@ -1,5 +1,6 @@
 module.exports = [
   't200',
-  'v40',
-  'b'
+  'v15',
+  'l12',
+  'b r b /: d r r b r d r r d b r r :/35'
 ].join(' ');
