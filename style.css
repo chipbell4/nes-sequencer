@@ -25,6 +25,11 @@ html, body {
     display: flex;
 }
 
+h2 {
+    text-align: center;
+    margin: 0 0 0.2em 0;
+}
+
 .note-input {
     flex: 1;
 }
