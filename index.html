@@ -8,9 +8,20 @@
         <script src="kk.js"></script>
     </head>
     <body>
-        <button id="megaman">Megaman</button></br>
-        <button id="kk">Kart Kingdom</button>
-        <button id="stop">Stop</button>
+        <header id="top-bar">
+            <span id="controls-container">
+                <button id="stop">Stop</button>
+            </span>
+            <button id="megaman">Megaman</button></br>
+            <button id="kk">Kart Kingdom</button>
+        </header>
+        <div id="note-container">
+            <textarea data-channel="PWM1" class="note-input"></textarea>
+            <textarea data-channel="PWM2" class="note-input"></textarea>
+            <textarea data-channel="TRIANGLE" class="note-input"></textarea>
+            <textarea data-channel="NOISE" class="note-input"></textarea>
+        </div>
+
 <script>
 var playerFor = function(songName) {
     return function() {
