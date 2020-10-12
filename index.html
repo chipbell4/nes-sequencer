@@ -26,30 +26,46 @@
         </div>
         <footer>
             <span id="controls-container">
+                <button id="play">Play</button>
                 <button id="stop">Stop</button>
             </span>
             <button data-song-id="KK">Kart Kingdom</button>
         </footer>
 
 <script>
+const channels = ['PWM1', 'PWM2', 'TRIANGLE', 'NOISE'];
 const buttons = document.querySelectorAll('footer button[data-song-id]');
 for (const button of buttons) {
     button.addEventListener('click', () => {
         const songId = button.dataset.songId;
 
-        // build the data for the sequencer
-        const sequencerData = {};
-        for (const channel of ['PWM1', 'PWM2', 'TRIANGLE', 'NOISE']) {
-            sequencerData[channel] = NES.Mml.mmlToMelody(window[songId][channel]);
+        // load that song into the text areas
+        for (const channel of channels) {
+            document.querySelector(`textarea[data-channel=${channel}]`).value = window[songId][channel];
         }
-
-        // play it in the sequencer
-        NES.Sequencer.stop();
-        NES.Oscillators.context.resume().then(() => {
-            NES.Sequencer.play(sequencerData, true);
-        });
     });
 }
+
+document.getElementById('play').addEventListener('click', () => {
+    // play whatever's in the textarea
+    const sequencerData = {};
+    for (const channel of channels) {
+        var textarea = document.querySelector(`textarea[data-channel=${channel}]`);
+        try {
+            sequencerData[channel] = NES.Mml.mmlToMelody(textarea.value);
+        } catch(e) {
+            console.log(e);
+            alert(`Invalid data in the ${channel.toLowerCase()} input!`);
+            return;
+        }
+    }
+
+    // play it in the sequencer
+    NES.Sequencer.stop();
+    NES.Oscillators.context.resume().then(() => {
+        NES.Sequencer.play(sequencerData, true);
+    });
+});
 
 document.getElementById('stop').addEventListener('click', () => NES.Sequencer.stop());
         </script>
