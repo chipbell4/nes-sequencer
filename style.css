@@ -20,7 +20,7 @@ html, body {
 
 #input-container {
     position: absolute;
-    top: 50vh;
+    top: 40vh;
     width: 100vw;
     display: flex;
 }
