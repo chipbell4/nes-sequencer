@@ -1,0 +1,18 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: blue;
+}
+
+#note-container {
+    display: flex;
+}
+
+textarea.note-input {
+    flex: 1;
+    resize: none;
+}
