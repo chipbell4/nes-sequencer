@@ -1,3 +1,13 @@
+:root {
+    --nes-red: #ce0001;
+    --nes-light-gray: #cccac6;
+    --nes-controller-gray: #888681;
+    --nes-dark-gray: #747273;
+    --nes-black: #343434;
+
+    --button-light-shadow: #807f7f;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -5,7 +15,7 @@
 html, body {
     margin: 0;
     padding: 0;
-    background-color: blue;
+    background-color: var(--nes-light-gray);
 }
 
 #note-container {
@@ -15,4 +25,32 @@ html, body {
 textarea.note-input {
     flex: 1;
     resize: none;
+}
+
+footer {
+    background-color: var(--nes-dark-gray);
+    position: absolute;
+    padding: 2vh 4vw;
+    bottom: 0;
+    width: 100%;
+}
+
+button {
+    background: var(--nes-dark-gray);
+    border-radius: 3px;
+    border: 3px solid var(--nes-black);
+    border-top-color: var(--button-light-shadow);
+    border-left-color: var(--button-light-shadow);
+    padding: 1em 0.5em 0.5em 1em;
+    color: var(--nes-red);
+    text-decoration:none;
+    display: inline-block;
+    transition: 0.1s;
+}
+
+button:active {
+    border-bottom-color: var(--button-light-shadow);
+    border-right-color: var(--button-light-shadow);
+    border-top-color: var(--nes-black);
+    border-left-color: var(--nes-black);
 }
