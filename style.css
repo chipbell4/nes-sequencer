@@ -18,7 +18,7 @@ html, body {
     background-color: var(--nes-light-gray);
 }
 
-#note-container {
+#input-container {
     position: absolute;
     top: 50vh;
     width: 100vw;
