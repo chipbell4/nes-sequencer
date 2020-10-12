@@ -25,10 +25,14 @@ html, body {
     display: flex;
 }
 
-textarea.note-input {
+.note-input {
     flex: 1;
-    height: 40vh;
+}
+
+textarea {
+    width: 100%;
     resize: none;
+    height: 40vh;
 }
 
 footer {
