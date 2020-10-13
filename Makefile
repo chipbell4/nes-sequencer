@@ -5,6 +5,9 @@ all: nes.js megaman2.js arp.js mixing-test.js kk.js docs roswell.js
 nes.js: $(addprefix src/, $(NES_FILES))
 	node_modules/.bin/browserify src/nes-main.js > nes.js
 
+examples.js: src/examples/*
+	node_modules/.bin/browserify src/examples/app.js > examples.js
+
 docs: $(addprefix src/, $(NES_FILES))
 	node_modules/.bin/jsdoc -d docs src
 
