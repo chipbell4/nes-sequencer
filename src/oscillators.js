@@ -1,4 +1,4 @@
-var { Bus, Types } = require('./events');
+var { Bus, Types } = require('./events')
 
 /**
  * Handles oscillators and their configuration
@@ -139,7 +139,7 @@ module.exports = (function () {
         oscillators[oscillatorIndex].gain.gain.value = volume
       }
 
-      Bus.trigger(Types.OSCILLATOR_CHANGE, { oscillatorIndex, frequency, volume });
+      Bus.trigger(Types.OSCILLATOR_CHANGE, { oscillatorIndex, frequency, volume })
 
       if (oscillatorIndex === 'NOISE') {
         // calculate the number of half steps above middle C
