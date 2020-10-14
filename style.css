@@ -16,6 +16,8 @@ html, body {
     margin: 0;
     padding: 0;
     background-color: var(--nes-light-gray);
+    font-family: 'Orbitron', monospace;
+    text-transform: uppercase;
 }
 
 #input-container {
@@ -27,6 +29,7 @@ html, body {
 
 h2 {
     text-align: center;
+    color: var(--nes-red);
     margin: 0 0 0.2em 0;
 }
 
@@ -49,6 +52,8 @@ footer {
 }
 
 button {
+    font-family: 'Orbitron', monospace;
+    text-transform: uppercase;
     background: var(--nes-dark-gray);
     border-radius: 3px;
     border: 3px solid var(--nes-black);
