@@ -22,9 +22,9 @@ document.getElementById('play').addEventListener('click', () => {
         try {
             sequencerData[channel] = NES.Mml.mmlToMelody(textarea.value);
         } catch(e) {
-            console.log(e);
-            alert(`Invalid data in the ${channel.toLowerCase()} input!`);
-            return;
+            sequencerData[channel] = [
+              { frequency: 440, volume: 0 }
+            ];
         }
     }
 
