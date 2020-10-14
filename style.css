@@ -20,6 +20,15 @@ html, body {
     text-transform: uppercase;
 }
 
+#canvas {
+    height: 40vh;
+    width: 40vh;
+    background-color: black;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #input-container {
     position: absolute;
     top: 40vh;
