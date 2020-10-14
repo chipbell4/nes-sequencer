@@ -60,6 +60,21 @@ NES.Events.Bus.addEventListener(NES.Events.Types.OSCILLATOR_CHANGE, function(e) 
   }
 });
 
+const drawPoints = (p, color) => {
+  const W = canvas.width;
+  ctx.fillStyle = color;
+  for (let i = 0; i < p.length; i++) {
+    const x = W * i / MAX_POINTS;
+
+    const halfStepsFromA = Math.log(p[i].frequency / 440) / Math.log(Math.pow(2, 1/12))
+    const y = 70 - halfStepsFromA * 2
+    const w = W / MAX_POINTS;
+    const h = p[i].volume * 10;
+
+    ctx.fillRect(x, y, W / MAX_POINTS, p[i].volume * 10)
+  }
+};
+
 const draw = () => {
   requestAnimationFrame(draw);
   
@@ -67,14 +82,8 @@ const draw = () => {
   ctx.clearRect(0, 0, W, W);
 
   // just draw PWM1 for now
-  for (let i = 0; i < points.PWM1.length; i++) {
-    const x = W * i / MAX_POINTS;
-
-    const halfStepsFromA = Math.log(points.PWM1[i].frequency / 440) / Math.log(Math.pow(2, 1/12))
-    const y = 70 - halfStepsFromA * 5
-
-    ctx.fillStyle = 'green';
-    ctx.fillRect(x, y, W / MAX_POINTS, points.PWM1[i].volume * 10)
-  }
+  drawPoints(points.PWM1, 'green');
+  drawPoints(points.PWM2, 'red');
+  drawPoints(points.TRIANGLE, 'blue');
 }
 requestAnimationFrame(draw);
