@@ -32,7 +32,7 @@ document.getElementById('play').addEventListener('click', () => {
     // play it in the sequencer
     NES.Sequencer.stop();
     NES.Oscillators.context.resume().then(() => {
-        NES.Sequencer.play(sequencerData, true);
+        NES.Sequencer.play(sequencerData, false);
     });
 });
 
