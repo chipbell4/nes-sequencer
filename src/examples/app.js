@@ -37,3 +37,9 @@ document.getElementById('play').addEventListener('click', () => {
 });
 
 document.getElementById('stop').addEventListener('click', () => NES.Sequencer.stop());
+document.getElementById('reset').addEventListener('click', () => {
+    for (const channel of channels) {
+        var textarea = document.querySelector(`textarea[data-channel=${channel}]`);
+        textarea.value = '';
+    }
+});
