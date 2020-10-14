@@ -1,6 +1,7 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 require('./kk/app.js');
 require('./roswell/app.js');
+require('./smb2/app.js');
 
 const channels = ['PWM1', 'PWM2', 'TRIANGLE', 'NOISE'];
 const buttons = document.querySelectorAll('footer button[data-song-id]');
@@ -23,22 +24,72 @@ document.getElementById('play').addEventListener('click', () => {
         try {
             sequencerData[channel] = NES.Mml.mmlToMelody(textarea.value);
         } catch(e) {
-            console.log(e);
-            alert(`Invalid data in the ${channel.toLowerCase()} input!`);
-            return;
+            sequencerData[channel] = [
+              { frequency: 440, volume: 0 }
+            ];
         }
     }
 
     // play it in the sequencer
     NES.Sequencer.stop();
     NES.Oscillators.context.resume().then(() => {
-        NES.Sequencer.play(sequencerData, true);
+        NES.Sequencer.play(sequencerData, false);
     });
 });
 
 document.getElementById('stop').addEventListener('click', () => NES.Sequencer.stop());
+document.getElementById('reset').addEventListener('click', () => {
+    for (const channel of channels) {
+        var textarea = document.querySelector(`textarea[data-channel=${channel}]`);
+        textarea.value = '';
+    }
+});
 
-},{"./kk/app.js":2,"./roswell/app.js":7}],2:[function(require,module,exports){
+const canvas = document.querySelector('#canvas');
+const ctx = canvas.getContext('2d');
+const points = {
+  PWM1: [],
+  PWM2: [],
+  TRIANGLE: [],
+  NOISE: [],
+};
+const MAX_POINTS = 10;
+NES.Events.Bus.addEventListener(NES.Events.Types.OSCILLATOR_CHANGE, function(e) {
+  points[e.oscillatorIndex].push(Object.assign({ when: Date.now()}, e));
+  if (points[e.oscillatorIndex].length > MAX_POINTS) {
+    points[e.oscillatorIndex].shift();
+  }
+});
+
+const drawPoints = (p, color) => {
+  const W = canvas.width;
+  ctx.fillStyle = color;
+  for (let i = 0; i < p.length; i++) {
+    const x = W * i / MAX_POINTS;
+
+    const halfStepsFromA = Math.log(p[i].frequency / 440) / Math.log(Math.pow(2, 1/12))
+    const y = 70 - halfStepsFromA * 2
+    const w = W / MAX_POINTS;
+    const h = p[i].volume * 10;
+
+    ctx.fillRect(x, y, W / MAX_POINTS, p[i].volume * 30)
+  }
+};
+
+const draw = () => {
+  requestAnimationFrame(draw);
+  
+  const W = canvas.width;
+  ctx.clearRect(0, 0, W, W);
+
+  // just draw PWM1 for now
+  drawPoints(points.PWM1, '#F87068');
+  drawPoints(points.PWM2, '#28C020');
+  drawPoints(points.TRIANGLE, '#20A0F8');
+}
+requestAnimationFrame(draw);
+
+},{"./kk/app.js":2,"./roswell/app.js":7,"./smb2/app.js":12}],2:[function(require,module,exports){
 window.KK = {
   tempo: 200,
   TRIANGLE: require('./bass.js'),
@@ -309,7 +360,7 @@ o20 c r c r
 r r r r
 o4 g r r r
 o1 c r r r
-:/8
+:/35
 `
 ;
 
@@ -354,6 +405,87 @@ e b a+ > f+
 e8 d16 < b16 r4
 l8 b a+ f+ d+
 l16 e r r e l4 r r r
+`;
+
+},{}],12:[function(require,module,exports){
+window.SMB2 = {
+  PWM1: require('./top.js'),
+  PWM2: require('./bottom.js'),
+  TRIANGLE: require('./bass.js'),
+  NOISE: require('./drums.js'),
+};
+
+},{"./bass.js":13,"./bottom.js":14,"./drums.js":15,"./top.js":16}],13:[function(require,module,exports){
+module.exports =
+`
+t200
+v25
+o3
+l12
+d d-6 c < b6 g f6 e d4 > d4 < d4 g4
+
+l4
+c g c g
+< b > g < b > g
+< b- > g < b- > g
+< a > g < a > g
+f > f < f+ > f+ <
+g > g < a > a <
+d f < g > g
+c1
+`
+
+},{}],14:[function(require,module,exports){
+module.exports =
+`
+
+t200
+v25
+
+o4
+l12
+b b-6 a f6 d c6 < b b4 > b4 < b2
+o5
+c6 < e g6 > c4 < e g6 > c < e- f+ b > e6 < b b2
+b-6 d g6 b-4 d g6 b- e a > d e6 d2 e
+a6 g a6 f4 a g6 f+
+e6 e- e6 c4 < a b6 > d-
+d6 c d6 < g4 > c < b6 g g1
+`;
+
+},{}],15:[function(require,module,exports){
+module.exports =
+`
+t200
+v10
+r12 r4 r2 r1
+l24
+o5
+/:
+r4 c r r r r r
+r4 c r r r r r
+r4 c r r r r r
+r4 c r c r c r
+:/4
+
+`
+
+},{}],16:[function(require,module,exports){
+module.exports =
+`
+t200
+v25
+
+o5
+l12
+g f+6 f d6 < b a6 a- g4 > g4 < g2
+o5
+g6 c e6 g4 c e6 g < b > e- g b6 a a2
+g6 < b > d6 g4 < b > d6 g d- e g b6 a2 b >
+c6 < b > c6 < a4 > c < b6 a
+g6 f+ g6 e4 d- d6 e
+f6 e f6 < b4 > e d6 c c1
+
 `;
 
 },{}]},{},[1]);

@@ -23,7 +23,7 @@ html, body {
 #canvas {
     height: 40vh;
     width: 40vh;
-    background-color: black;
+    background-color: var(--nes-black);
     display: block;
     margin-left: auto;
     margin-right: auto;

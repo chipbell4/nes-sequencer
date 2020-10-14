@@ -71,7 +71,7 @@ const drawPoints = (p, color) => {
     const w = W / MAX_POINTS;
     const h = p[i].volume * 10;
 
-    ctx.fillRect(x, y, W / MAX_POINTS, p[i].volume * 10)
+    ctx.fillRect(x, y, W / MAX_POINTS, p[i].volume * 30)
   }
 };
 
@@ -82,8 +82,8 @@ const draw = () => {
   ctx.clearRect(0, 0, W, W);
 
   // just draw PWM1 for now
-  drawPoints(points.PWM1, 'green');
-  drawPoints(points.PWM2, 'red');
-  drawPoints(points.TRIANGLE, 'blue');
+  drawPoints(points.PWM1, '#F87068');
+  drawPoints(points.PWM2, '#28C020');
+  drawPoints(points.TRIANGLE, '#20A0F8');
 }
 requestAnimationFrame(draw);
