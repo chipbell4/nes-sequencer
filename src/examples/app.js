@@ -71,10 +71,10 @@ const draw = () => {
     const x = W * i / MAX_POINTS;
 
     const halfStepsFromA = Math.log(points.PWM1[i].frequency / 440) / Math.log(Math.pow(2, 1/12))
-    const y = 10 + halfStepsFromA * 5
+    const y = 70 - halfStepsFromA * 5
 
     ctx.fillStyle = 'green';
-    ctx.fillRect(x, y, 10, 10)
+    ctx.fillRect(x, y, W / MAX_POINTS, points.PWM1[i].volume * 10)
   }
 }
 requestAnimationFrame(draw);
