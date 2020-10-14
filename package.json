@@ -1,6 +1,6 @@
 {
   "name": "nes-sequencer",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "This is a attempt to emulate the NES audio hardware using the Web Audio API.",
   "main": "nes.js",
   "scripts": {
