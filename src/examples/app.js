@@ -1,5 +1,6 @@
 require('./kk/app.js');
 require('./roswell/app.js');
+require('./smb2/app.js');
 
 const channels = ['PWM1', 'PWM2', 'TRIANGLE', 'NOISE'];
 const buttons = document.querySelectorAll('footer button[data-song-id]');
