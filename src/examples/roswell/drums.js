@@ -14,6 +14,6 @@ o20 c r c r
 r r r r
 o4 g r r r
 o1 c r r r
-:/8
+:/35
 `
 ;
