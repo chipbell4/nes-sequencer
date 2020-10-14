@@ -1,6 +1,6 @@
 NES_FILES := nes-main.js oscillators.js sequencer.js music-tools.js effects.js mml.js
 
-all: nes.js megaman2.js arp.js mixing-test.js kk.js docs roswell.js
+all: nes.js megaman2.js arp.js mixing-test.js kk.js docs roswell.js examples.js
 
 nes.js: $(addprefix src/, $(NES_FILES))
 	node_modules/.bin/browserify src/nes-main.js > nes.js
@@ -19,12 +19,6 @@ arp.js: src/examples/arp/app.js
 
 mixing-test.js: src/examples/mixing-test/app.js
 	cat src/examples/mixing-test/app.js > mixing-test.js
-
-kk.js: src/examples/kk/*.js
-	node_modules/.bin/browserify src/examples/kk/app.js > kk.js
-
-roswell.js: src/examples/roswell/*.js
-	node_modules/.bin/browserify src/examples/roswell/app.js > roswell.js
 
 lint: src/*.js
 	node_modules/.bin/standard --fix src/*.js
