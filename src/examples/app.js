@@ -43,3 +43,38 @@ document.getElementById('reset').addEventListener('click', () => {
         textarea.value = '';
     }
 });
+
+const canvas = document.querySelector('#canvas');
+const ctx = canvas.getContext('2d');
+const points = {
+  PWM1: [],
+  PWM2: [],
+  TRIANGLE: [],
+  NOISE: [],
+};
+const MAX_POINTS = 10;
+NES.Events.Bus.addEventListener(NES.Events.Types.OSCILLATOR_CHANGE, function(e) {
+  points[e.oscillatorIndex].push(Object.assign({ when: Date.now()}, e));
+  if (points[e.oscillatorIndex].length > MAX_POINTS) {
+    points[e.oscillatorIndex].shift();
+  }
+});
+
+const draw = () => {
+  requestAnimationFrame(draw);
+  
+  const W = canvas.width;
+  ctx.clearRect(0, 0, W, W);
+
+  // just draw PWM1 for now
+  for (let i = 0; i < points.PWM1.length; i++) {
+    const x = W * i / MAX_POINTS;
+
+    const halfStepsFromA = Math.log(points.PWM1[i].frequency / 440) / Math.log(Math.pow(2, 1/12))
+    const y = 10 + halfStepsFromA * 5
+
+    ctx.fillStyle = 'green';
+    ctx.fillRect(x, y, 10, 10)
+  }
+}
+requestAnimationFrame(draw);
